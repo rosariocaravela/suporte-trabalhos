@@ -1,15 +1,19 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import Home from '../pages/public/Home'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import PublicRoutes from "./PublicRoutes";
+/*import ClientRoutes from "./ClientRoutes";
+import AccountantRoutes from "./AccountantRoutes";*/
 
 function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/*" element={<PublicRoutes />} />
+       {/* <Route path="/client/*" element={<ClientRoutes />} />
+        <Route path="/accountant/*" element={<AccountantRoutes />} />*/}
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default AppRoutes
+export default AppRoutes;

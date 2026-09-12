@@ -22,3 +22,33 @@ body {
   background-color: var(--color-background);
   color: var(--color-text);
 }
+
+@keyframes heroDayNight {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0;
+  }
+
+  45% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  95% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-hero-night {
+  animation: heroDayNight 12s ease-in-out infinite;
+}
