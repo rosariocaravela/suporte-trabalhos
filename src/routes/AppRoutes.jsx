@@ -2,15 +2,15 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import PublicRoutes from "./PublicRoutes";
 /*import ClientRoutes from "./ClientRoutes";
-import AccountantRoutes from "./AccountantRoutes";*/
+import ProviderRoutes from "./ProviderRoutes";*/
 
 function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/*" element={<PublicRoutes />} />
-       {/* <Route path="/client/*" element={<ClientRoutes />} />
-        <Route path="/accountant/*" element={<AccountantRoutes />} />*/}
+      {/* <Route path="/client/*" element={<ClientRoutes />} />
+       <Route path="/provider/*" element={<ProviderRoutes />} />*/}
       </Routes>
     </BrowserRouter>
   );

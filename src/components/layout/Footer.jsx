@@ -1,25 +1,27 @@
+import { Link } from "react-router-dom";
+
 import FacebookIcon from "../../assets/icons/Facebook.png";
 import InstagramIcon from "../../assets/icons/Instagram.png";
 import YoutubeIcon from "../../assets/icons/YouTube.png";
 import WhatsappIcon from "../../assets/icons/Whatsapp.png";
 
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
 function Footer() {
     return (
         <footer className="w-full bg-primary text-white">
 
             {/* CONTEÚDO PRINCIPAL */}
-            <div className="mx-auto max-w-7xl px-6 py-8">
+            <div className="mx-auto max-w-7xl px-6 py-10">
 
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+                <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
 
                     {/* MARCA */}
                     <div>
 
-                        <div className="mb-3 flex items-center gap-3">
+                        <div className="mb-4 flex items-center gap-3">
 
-                            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent">
                                 <span className="font-bold text-white">
                                     ST
                                 </span>
@@ -32,19 +34,19 @@ function Footer() {
                         </div>
 
                         <p className="max-w-sm text-sm leading-relaxed text-white/70">
-                            Serviços de contabilidade com profissionalismo,
-                            confiança, segurança e simplicidade.
+                            Suporte informático profissional para computadores,
+                            redes, software, backups e manutenção.
                         </p>
 
                         {/* REDES SOCIAIS */}
-                        <div className="mt-4 flex gap-4">
+                        <div className="mt-5 flex gap-3">
 
                             <a
                                 href="https://www.facebook.com/"
                                 target="_blank"
                                 rel="noreferrer"
                                 aria-label="Facebook"
-                                className="transition hover:opacity-80"
+                                className="rounded-lg p-1 transition hover:bg-white/10 hover:opacity-80"
                             >
                                 <img
                                     src={FacebookIcon}
@@ -58,7 +60,7 @@ function Footer() {
                                 target="_blank"
                                 rel="noreferrer"
                                 aria-label="Instagram"
-                                className="transition hover:opacity-80"
+                                className="rounded-lg p-1 transition hover:bg-white/10 hover:opacity-80"
                             >
                                 <img
                                     src={InstagramIcon}
@@ -72,7 +74,7 @@ function Footer() {
                                 target="_blank"
                                 rel="noreferrer"
                                 aria-label="YouTube"
-                                className="transition hover:opacity-80"
+                                className="rounded-lg p-1 transition hover:bg-white/10 hover:opacity-80"
                             >
                                 <img
                                     src={YoutubeIcon}
@@ -86,7 +88,7 @@ function Footer() {
                                 target="_blank"
                                 rel="noreferrer"
                                 aria-label="WhatsApp"
-                                className="transition hover:opacity-80"
+                                className="rounded-lg p-1 transition hover:bg-white/10 hover:opacity-80"
                             >
                                 <img
                                     src={WhatsappIcon}
@@ -103,46 +105,55 @@ function Footer() {
                     {/* SERVIÇOS */}
                     <div>
 
-                        <h3 className="mb-3 text-base font-semibold">
+                        <h3 className="mb-4 text-base font-semibold">
                             Serviços
                         </h3>
 
-                        <ul className="space-y-2 text-sm">
+                        <ul className="space-y-2.5 text-sm">
 
                             <li>
-                                <a
-                                    href="/servicos"
+                                <Link
+                                    to="/servicos"
                                     className="text-white/70 transition hover:text-accent"
                                 >
-                                    Contabilidade
-                                </a>
+                                    Manutenção de computadores
+                                </Link>
                             </li>
 
                             <li>
-                                <a
-                                    href="/servicos"
+                                <Link
+                                    to="/servicos"
                                     className="text-white/70 transition hover:text-accent"
                                 >
-                                    Consultoria
-                                </a>
+                                    Instalação de software
+                                </Link>
                             </li>
 
                             <li>
-                                <a
-                                    href="/servicos"
+                                <Link
+                                    to="/servicos"
                                     className="text-white/70 transition hover:text-accent"
                                 >
-                                    Gestão financeira
-                                </a>
+                                    Redes e Internet
+                                </Link>
                             </li>
 
                             <li>
-                                <a
-                                    href="/servicos"
+                                <Link
+                                    to="/servicos"
                                     className="text-white/70 transition hover:text-accent"
                                 >
-                                    Declarações fiscais
-                                </a>
+                                    Backup e recuperação
+                                </Link>
+                            </li>
+
+                            <li>
+                                <Link
+                                    to="/servicos"
+                                    className="text-white/70 transition hover:text-accent"
+                                >
+                                    Suporte remoto
+                                </Link>
                             </li>
 
                         </ul>
@@ -153,38 +164,48 @@ function Footer() {
                     {/* CONTACTOS */}
                     <div>
 
-                        <h3 className="mb-3 text-base font-semibold">
+                        <h3 className="mb-4 text-base font-semibold">
                             Contactos
                         </h3>
 
-                        <ul className="space-y-2.5 text-sm">
+                        <ul className="space-y-3 text-sm">
 
-                            <li className="flex items-center gap-3">
+                            <li className="flex items-start gap-3">
 
-                                <Mail className="h-4 w-4 shrink-0 text-accent" />
+                                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
 
                                 <span className="text-white/70">
-                                    email@suporte-trabalhos.com
+                                    suportetrabalhos@gmail.com
                                 </span>
 
                             </li>
 
-                            <li className="flex items-center gap-3">
+                            <li className="flex items-start gap-3">
 
-                                <Phone className="h-4 w-4 shrink-0 text-accent" />
+                                <Phone className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
 
                                 <span className="text-white/70">
-                                    +258 XX XXX XXXX
+                                    +258 84 256 7470
                                 </span>
 
                             </li>
 
-                            <li className="flex items-center gap-3">
+                            <li className="flex items-start gap-3">
 
-                                <MapPin className="h-4 w-4 shrink-0 text-accent" />
+                                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
 
                                 <span className="text-white/70">
-                                    Maputo, Moçambique
+                                    Matola, Moçambique
+                                </span>
+
+                            </li>
+
+                            <li className="flex items-start gap-3">
+
+                                <Clock className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+
+                                <span className="text-white/70">
+                                    Segunda a Sábado
                                 </span>
 
                             </li>
@@ -197,7 +218,7 @@ function Footer() {
 
 
                 {/* LINHA INFERIOR */}
-                <div className="mt-7 border-t border-white/10 pt-5">
+                <div className="mt-10 border-t border-white/10 pt-5">
 
                     <div className="flex flex-col items-center justify-between gap-3 text-xs text-white/60 md:flex-row">
 
@@ -208,19 +229,19 @@ function Footer() {
 
                         <div className="flex gap-5">
 
-                            <a
-                                href="/privacidade"
+                            <Link
+                                to="/privacidade"
                                 className="transition hover:text-accent"
                             >
                                 Política de Privacidade
-                            </a>
+                            </Link>
 
-                            <a
-                                href="/termos"
+                            <Link
+                                to="/termos"
                                 className="transition hover:text-accent"
                             >
                                 Termos de Uso
-                            </a>
+                            </Link>
 
                         </div>
 

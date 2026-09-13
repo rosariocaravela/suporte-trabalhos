@@ -1,208 +1,198 @@
-Estou a desenvolver um projeto Web chamado **Suporte-Trabalhos**, cujo objetivo é criar uma plataforma de suporte e qualificação de clientes para um profissional de contabilidade.
+# SUPORTE-TRABALHOS
 
-O problema que queremos resolver é o seguinte: o contabilista divulga os seus serviços através das redes sociais e recebe muitas mensagens de pessoas que fazem perguntas básicas ou apenas demonstram curiosidade. O objetivo do site é fornecer essas informações antecipadamente, responder dúvidas frequentes através de um assistente de IA e identificar os clientes que realmente pretendem contratar um serviço.
+## Plataforma Web de Suporte Informático
 
-### Objetivo do MVP
+O **Suporte-Trabalhos** é uma plataforma web pessoal desenvolvida para apresentar e disponibilizar os meus serviços de suporte informático.
 
-O fluxo principal deve ser:
+A plataforma funciona como o meu espaço profissional na internet, onde clientes podem conhecer o meu trabalho, consultar os serviços que presto, obter informações sobre problemas informáticos comuns e solicitar assistência.
 
-Redes sociais → Website → Conhecer o profissional → Ver serviços → Consultar informações/preços → Tirar dúvidas com IA → Escolher serviço → Solicitar serviço → Pagar uma percentagem inicial → Pedido confirmado → Contabilista recebe o pedido e entra em contacto com o cliente.
+O objetivo é facilitar o contacto entre mim, enquanto profissional de suporte informático, e os clientes que necessitam de assistência técnica.
 
-O site deve ter uma aparência profissional, moderna, limpa e confiável, adequada para uma empresa/profissional da área de contabilidade.
+---
 
-### Tecnologias
+## Objetivo do Projeto
 
-Frontend:
+O objetivo principal do projeto é criar uma plataforma profissional através da qual eu possa:
 
-* React
-* Vite
-* JavaScript
-* Tailwind CSS
+- Apresentar os meus serviços de suporte informático;
+- Apresentar-me como profissional;
+- Permitir que clientes conheçam os serviços disponíveis;
+- Informar sobre preços e condições dos serviços;
+- Receber pedidos de assistência;
+- Organizar e acompanhar os pedidos dos clientes;
+- Facilitar a comunicação com os clientes;
+- Disponibilizar conteúdos e informações úteis sobre informática.
 
-Não utilizar TypeScript.
+---
 
-O projeto React/Vite já existe e o Tailwind CSS já está configurado. Não recriar a configuração do Tailwind.
+## Como a Plataforma Funciona
 
-### Identidade visual
+O cliente poderá chegar ao site através das redes sociais, Google, WhatsApp, links partilhados ou outros meios.
 
-Utilizar uma paleta profissional baseada nas seguintes cores:
+O fluxo principal será:
 
-* Azul-marinho: #0F2747 — cor principal
-* Azul petróleo: #155E75 — cor secundária
-* Dourado suave: #D4A72C — cor de destaque
-* Branco: #FFFFFF — fundo principal
-* Cinza muito claro: #F5F7FA — fundos alternativos
-* Cinza escuro: #1F2937 — textos
+**Cliente**
+→ Entra no site  
+→ Conhece o profissional  
+→ Consulta os serviços  
+→ Consulta preços e informações  
+→ Escolhe o serviço pretendido  
+→ Solicita suporte  
+→ Envia os dados e descreve o problema  
+→ O pedido é recebido pelo profissional  
+→ O profissional analisa o pedido  
+→ Entra em contacto com o cliente  
+→ O serviço é realizado
 
-A utilização das cores deve ser equilibrada. O azul-marinho deve transmitir confiança e profissionalismo. O dourado deve ser utilizado apenas em detalhes importantes, como pequenos destaques, ícones, indicadores e elementos de chamada para ação.
+---
 
-Evitar excesso de cores, gradientes exagerados ou aparência de template genérico.
+## Serviços de Suporte Informático
 
-### Página inicial
+A plataforma poderá disponibilizar diferentes tipos de serviços, como:
 
-Criar uma Home moderna e responsiva.
+- Manutenção de computadores;
+- Formatação de computadores;
+- Instalação do Windows;
+- Instalação e configuração de programas;
+- Configuração de computadores;
+- Remoção de vírus e malware;
+- Backup e recuperação de dados;
+- Recuperação de ficheiros;
+- Configuração de impressoras;
+- Configuração de redes;
+- Resolução de problemas de Internet;
+- Suporte remoto;
+- Configuração de equipamentos;
+- Manutenção preventiva;
+- Otimização de computadores;
+- Outros serviços de assistência informática.
 
-A primeira seção deve apresentar claramente:
+Os serviços serão apresentados com informações claras para que o cliente possa perceber o que é oferecido antes de solicitar assistência.
 
-* Uma mensagem principal sobre os serviços de contabilidade;
-* Uma pequena descrição;
-* Botão "Ver serviços";
-* Botão "Falar com assistente";
-* Uma imagem profissional do contabilista.
+---
 
-Depois criar uma seção **"Sobre o profissional"**.
+## Área do Cliente
 
-Essa seção deve apresentar a fotografia profissional do contabilista e explicar de forma clara:
+O cliente poderá:
 
-* Quem é o profissional;
-* A sua área de atuação;
-* A sua experiência;
-* O tipo de clientes que atende;
-* Os principais serviços que presta.
+- Consultar os serviços;
+- Solicitar assistência;
+- Descrever o problema;
+- Consultar os seus pedidos;
+- Acompanhar o estado de um pedido;
+- Consultar informações relacionadas ao serviço.
 
-A fotografia deve ter destaque, mas a seção não deve parecer apenas um perfil pessoal. Deve transmitir confiança profissional.
+---
 
-### Seção de serviços
+## Área do Profissional
 
-Criar uma seção onde os visitantes possam visualizar os principais serviços.
+A plataforma terá uma área privada para gestão dos serviços e pedidos.
 
-Cada serviço deve aparecer num cartão contendo:
+Através do painel administrativo, poderei:
 
-* Nome do serviço;
-* Pequena descrição;
-* Preço;
-* Percentagem inicial;
-* Valor inicial a pagar;
-* Prazo, quando aplicável;
-* Botão "Solicitar serviço";
-* Botão "Ver detalhes".
-
-Exemplo:
-
-Contabilidade Mensal
-Preço: 5.000 MT
-Pagamento inicial: 20%
-Valor inicial: 1.000 MT
-
-O preço e a percentagem devem ser apresentados de forma clara antes de o cliente solicitar o serviço.
-
-### Assistente de IA
-
-Adicionar uma interface de chatbot que posteriormente será integrada com uma API de IA.
-
-O assistente deve responder perguntas frequentes relacionadas com:
-
-* Serviços;
-* Preços;
-* Documentos necessários;
-* Prazos;
-* Forma de funcionamento;
-* Processo de contratação.
-
-A interface deve deixar claro que o assistente fornece informações iniciais e que questões específicas podem ser encaminhadas para o contabilista.
-
-Adicionar uma chamada para ação quando o cliente demonstrar interesse:
-
-"Quero contratar este serviço"
-
-### Solicitação de serviço
-
-Quando o cliente escolher um serviço, deverá preencher um formulário simples:
-
-* Nome;
-* Telefone;
-* Email;
-* Serviço escolhido;
-* Observação ou descrição da necessidade.
-
-Depois mostrar um resumo:
-
-Serviço: Contabilidade Mensal
-Preço total: 5.000 MT
-Percentagem inicial: 20%
-Valor a pagar: 1.000 MT
-
-O cliente deve então avançar para o pagamento.
-
-### Pagamento
-
-O sistema deverá ser preparado para futuramente integrar um meio de pagamento utilizado em Moçambique.
-
-Não criar um pagamento falso nem considerar automaticamente que o pagamento foi realizado apenas porque o utilizador clicou num botão.
-
-O fluxo esperado futuramente será:
-
-PENDING_PAYMENT → pagamento confirmado → PAID → pedido enviado ao contabilista.
-
-### Dashboard do contabilista
-
-Criar uma área protegida para o contabilista visualizar:
-
-* Número de pedidos;
-* Pedidos aguardando pagamento;
-* Pagamentos confirmados;
-* Pedidos em atendimento;
-* Pedidos concluídos.
-
-Cada pedido deve apresentar:
-
-* Nome do cliente;
-* Telefone;
-* Serviço;
-* Preço total;
-* Percentagem;
-* Valor pago;
-* Estado;
-* Data do pedido.
-
-O objetivo é que o contabilista só precise entrar em contacto pessoalmente depois que o cliente demonstrar interesse real e, no caso do MVP, efetuar o pagamento inicial.
-
-### Páginas iniciais
-
-Criar inicialmente:
-
-1. Home
-2. Serviços
-3. Detalhes do Serviço
-4. Sobre o profissional
-5. Solicitar Serviço
-6. Pagamento
-7. Login
-8. Dashboard do contabilista
-9. Pedidos
-
-O projeto deve ser responsivo para computador, tablet e telemóvel.
-
-### Estrutura inicial do frontend
-
-Organizar o código de forma simples e escalável:
-
-src/
-├── assets/
-├── components/
-├── pages/
-├── layouts/
-├── services/
-├── App.jsx
-├── main.jsx
-└── index.css
-
-Criar componentes reutilizáveis, evitando colocar toda a interface dentro do App.jsx.
-
-### Importante
-
-Neste momento, o objetivo é construir primeiro um **MVP funcional e visualmente profissional**, não implementar todas as funcionalidades avançadas.
-
-Priorizar nesta ordem:
-
-1. Home
-2. Apresentação do profissional
-3. Serviços
-4. Detalhes dos serviços
-5. Solicitação
-6. Dashboard
-7. Depois integrar backend, base de dados, IA e pagamento.
-
-Não adicionar funcionalidades desnecessárias ao MVP.
-
-A experiência deve ser simples para o visitante: ele deve entender rapidamente quem é o profissional, quais serviços são oferecidos, quanto custam e como pode solicitar um serviço.
+- Visualizar pedidos;
+- Consultar informações dos clientes;
+- Gerir serviços;
+- Alterar preços;
+- Acompanhar o estado dos pedidos;
+- Gerir conteúdos;
+- Consultar pedidos em andamento;
+- Marcar pedidos como concluídos;
+- Gerir informações profissionais.
+
+---
+
+## Estados dos Pedidos
+
+Os pedidos poderão possuir diferentes estados:
+
+- `PENDING` — Pedido recebido;
+- `IN_REVIEW` — Pedido em análise;
+- `SCHEDULED` — Serviço agendado;
+- `IN_PROGRESS` — Serviço em execução;
+- `COMPLETED` — Serviço concluído;
+- `CANCELLED` — Pedido cancelado.
+
+---
+
+## Assistente de Atendimento
+
+No futuro, a plataforma poderá possuir um assistente inteligente para responder às dúvidas mais comuns dos clientes.
+
+O assistente poderá ajudar com questões relacionadas a:
+
+- Serviços disponíveis;
+- Preços;
+- Problemas informáticos comuns;
+- Manutenção;
+- Backup;
+- Formatação;
+- Instalação de programas;
+- Suporte remoto;
+- Processo de solicitação de assistência.
+
+Quando a situação exigir uma análise específica, o cliente poderá ser encaminhado diretamente para o profissional.
+
+---
+
+## Tecnologias
+
+### Frontend
+
+- React
+- Vite
+- JavaScript
+- Tailwind CSS
+
+### Backend
+
+- Node.js
+- Express
+
+### Base de Dados
+
+- PostgreSQL
+- Sequelize
+
+---
+
+## Estrutura Inicial
+
+```text
+suporte-trabalhos/
+│
+├── public/
+│
+├── src/
+│   ├── assets/
+│   │   ├── images/
+│   │   ├── icons/
+│   │   └── logos/
+│   │
+│   ├── components/
+│   │   ├── common/
+│   │   ├── layout/
+│   │   ├── forms/
+│   │   ├── services/
+│   │   └── contents/
+│   │
+│   ├── layouts/
+│   │
+│   ├── pages/
+│   │
+│   ├── services/
+│   │
+│   ├── hooks/
+│   │
+│   ├── context/
+│   │
+│   ├── utils/
+│   │
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+│
+├── package.json
+├── vite.config.js
+├── README.md
+└── .gitignore
