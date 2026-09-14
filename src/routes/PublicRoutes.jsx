@@ -1,8 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Home from "../pages/public/Home";
-/*import About from "../pages/public/About";
-import Services from "../pages/public/Services";
+import About from "../pages/public/About";
+/*import Services from "../pages/public/Services";
 import Contents from "../pages/public/Contents";
 import Videos from "../pages/public/Videos";
 import FAQ from "../pages/public/FAQ";
@@ -12,9 +12,10 @@ function PublicRoutes() {
     return (
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-            {/*
+            <Route path="/sobre" element={<About />} />
             <Route path="/about" element={<About />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+             {/*
             <Route path="/services" element={<Services />} />
             <Route path="/contents" element={<Contents />} />
             <Route path="/videos" element={<Videos />} />

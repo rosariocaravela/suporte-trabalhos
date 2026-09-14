@@ -107,16 +107,103 @@ function Home() {
 
             </div>
 
-            {/* SERVIÇOS RÁPIDOS */}
-            <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm text-white/80">
+          </div>
 
-              <span>✓ Manutenção</span>
+        </div>
 
-              <span>✓ Backup</span>
+      </section>
 
-              <span>✓ Redes</span>
+            {/* SOBRE O PROFISSIONAL - RESUMO */}
+      <section className="bg-white py-20">
 
-              <span>✓ Suporte remoto</span>
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+
+            {/* IMAGEM */}
+            <div className="relative">
+
+              <div className="absolute -left-4 -top-4 h-full w-full rounded-3xl bg-[#D4A72C]/20" />
+
+              <div className="relative overflow-hidden rounded-3xl shadow-lg">
+                <img
+                  src="/images/profissional.jpg"
+                  alt="Profissional de assistência informática"
+                  className="h-[380px] w-full object-cover"
+                />
+              </div>
+
+            </div>
+
+
+            {/* TEXTO */}
+            <div>
+
+              <h2 className="text-3xl font-bold leading-tight text-[#0F2747] md:text-4xl">
+                Tecnologia, suporte e soluções para o seu dia a dia
+              </h2>
+
+              <p className="mt-6 leading-7 text-gray-600">
+                Profissional de assistência informática dedicado a ajudar
+                pessoas e empresas a resolver problemas tecnológicos de
+                forma simples, segura e eficiente.
+              </p>
+
+              <p className="mt-4 leading-7 text-gray-600">
+                Oferecemos suporte técnico, manutenção, configuração de
+                sistemas, redes e desenvolvimento de soluções tecnológicas.
+              </p>
+
+
+              {/* VALORES RESUMIDOS */}
+              <div className="mt-6 flex flex-wrap gap-3">
+
+                <span className="rounded-full bg-[#0F2747]/5 px-4 py-2 text-sm font-medium text-[#0F2747]">
+                  ✓ Profissionalismo
+                </span>
+
+                <span className="rounded-full bg-[#0F2747]/5 px-4 py-2 text-sm font-medium text-[#0F2747]">
+                  ✓ Confiança
+                </span>
+
+                <span className="rounded-full bg-[#0F2747]/5 px-4 py-2 text-sm font-medium text-[#0F2747]">
+                  ✓ Segurança
+                </span>
+
+                <span className="rounded-full bg-[#0F2747]/5 px-4 py-2 text-sm font-medium text-[#0F2747]">
+                  ✓ Organização
+                </span>
+
+              </div>
+
+
+              {/* BOTÃO */}
+              <div className="mt-8">
+
+                <Link
+                  to="/sobre"
+                  className="
+                    inline-flex
+                    items-center
+                    rounded-full
+                    bg-[#D4A72C]
+                    px-7
+                    py-3.5
+                    font-semibold
+                    text-[#0F2747]
+                    shadow-md
+                    transition
+                    duration-300
+                    hover:-translate-y-1
+                    hover:bg-[#e5b936]
+                    hover:shadow-lg
+                  "
+                >
+                  Conheça o profissional
+                  <span className="ml-2">→</span>
+                </Link>
+
+              </div>
 
             </div>
 
