@@ -1,32 +1,119 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import PublicLayout from "../../layouts/PublicLayout";
+import useImagePreview from "../../hooks/useImagePreview";
+import useImagePosition from "../../hooks/useImagePosition";
+import profissionalImage from "../../assets/images/profissional.png";
 
-const DEFAULT_IMAGE = "/images/profissional.jpg";
+import {
+    MonitorCog,
+    Wrench,
+    Network,
+    Code2,
+} from "lucide-react";
+
+const DEFAULT_IMAGE = profissionalImage;
+
+/* =====================================================
+   SERVIÇOS
+===================================================== */
+
+const services = [
+    {
+        icon: MonitorCog,
+        title: "Suporte Informático",
+        description:
+            "Diagnóstico e resolução de problemas relacionados com software e sistemas informáticos.",
+        label: "Diagnóstico e suporte",
+    },
+    {
+        icon: Wrench,
+        title: "Manutenção",
+        description:
+            "Configuração, atualização e otimização de sistemas e ambientes informáticos.",
+        label: "Manutenção preventiva",
+    },
+    {
+        icon: Network,
+        title: "Redes e Conectividade",
+        description:
+            "Configuração, diagnóstico e suporte de redes e problemas de conectividade.",
+        label: "Conectividade",
+    },
+    {
+        icon: Code2,
+        title: "Soluções Digitais",
+        description:
+            "Desenvolvimento de soluções web e aplicações adaptadas às necessidades do cliente.",
+        label: "Desenvolvimento",
+    },
+];
+
+/* =====================================================
+   PROCESSO DE TRABALHO
+===================================================== */
+
+const steps = [
+    {
+        number: "01",
+        title: "Diagnóstico",
+        description:
+            "Análise inicial do problema e compreensão das necessidades do cliente.",
+    },
+    {
+        number: "02",
+        title: "Solução",
+        description:
+            "Aplicação de uma solução adequada, segura, eficiente e adaptada ao contexto.",
+    },
+    {
+        number: "03",
+        title: "Acompanhamento",
+        description:
+            "Acompanhamento e apoio para garantir uma boa experiência após a resolução.",
+    },
+];
+
+/* =====================================================
+   TECNOLOGIAS
+===================================================== */
+
+const technologies = [
+    "React",
+    "JavaScript",
+    "Vite",
+    "Tailwind CSS",
+    "Node.js",
+    "Express",
+    "PostgreSQL",
+    "Git",
+    "GitHub",
+    "Docker",
+    "SonarQube",
+    "VS Code",
+];
+
+/* =====================================================
+   COMPONENTE
+===================================================== */
 
 const About = () => {
-    const [selectedImage, setSelectedImage] = useState(DEFAULT_IMAGE);
+    const {
+        selectedImage,
+        handleImageChange,
+    } = useImagePreview(DEFAULT_IMAGE);
+
+    const {
+        imagePosition,
+        imageFrameRef,
+        handlePointerDown,
+        handlePointerMove,
+        handlePointerUp,
+    } = useImagePosition(selectedImage);
+
     const photoInputId = "about-photo-upload";
-
-    const handleImageChange = (event) => {
-        const file = event.target.files?.[0];
-
-        if (!file) {
-            setSelectedImage(DEFAULT_IMAGE);
-            return;
-        }
-
-        const previewUrl = URL.createObjectURL(file);
-        setSelectedImage(previewUrl);
-        event.target.value = "";
-    };
 
     return (
         <PublicLayout>
-
-            {/* =====================================================
-                SOBRE O PROFISSIONAL
-            ====================================================== */}
 
             <section
                 id="sobre"
@@ -37,17 +124,39 @@ const About = () => {
                     CABEÇALHO
                 ================================================== */}
 
-                <div className="mx-auto max-w-7xl px-6 pb-16 pt-10 lg:px-8">
+                <div className="mx-auto max-w-7xl px-6 pb-14 pt-12 lg:px-8 lg:pt-16">
 
-                    <div className="max-w-3xl">
+                    <div className="relative overflow-hidden rounded-3xl bg-[#F5F7FA] px-6 py-12 md:px-10 md:py-16">
 
-                        <h1 className="text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl">
-                            Sobre o Profissional
-                        </h1>
+                        {/* Elementos decorativos */}
 
-                        <p className="mt-5 max-w-2xl text-lg leading-8 text-gray-600">
-                            Apoio técnico com experiência, clareza e rigor para resolver problemas reais com confiança.
-                        </p>
+                        <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[#155E75]/10 blur-3xl" />
+
+                        <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-[#D4A72C]/10 blur-3xl" />
+
+                        <div className="relative max-w-3xl">
+
+                            <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-[#155E75]/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#155E75]">
+
+                                <span className="h-2 w-2 rounded-full bg-[#155E75]" />
+
+                                Perfil Profissional
+
+                            </div>
+
+                            <h1 className="text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl lg:text-6xl">
+                                Sobre o Profissional
+                            </h1>
+
+                            <div className="mt-6 h-1 w-20 rounded-full bg-[#D4A72C]" />
+
+                            <p className="mt-6 max-w-2xl text-lg leading-8 text-gray-600 md:text-xl">
+                                Engenharia informática aplicada a soluções
+                                práticas, funcionais e adaptadas às necessidades
+                                de cada cliente.
+                            </p>
+
+                        </div>
 
                     </div>
 
@@ -55,7 +164,7 @@ const About = () => {
 
 
                 {/* =================================================
-                    APRESENTAÇÃO
+                    APRESENTAÇÃO DO PROFISSIONAL
                 ================================================== */}
 
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -63,25 +172,44 @@ const About = () => {
                     <div className="grid items-center gap-14 lg:grid-cols-2">
 
                         {/* FOTO */}
+
                         <div className="relative">
 
-                            {/* Elemento decorativo */}
+                            {/* Decoração */}
+
                             <div className="absolute -bottom-5 -left-5 h-full w-full rounded-3xl bg-[#D4A72C]/20" />
 
-                            <div className="relative overflow-hidden rounded-3xl bg-gray-100 shadow-xl">
+                            <div
+                                ref={imageFrameRef}
+                                className="relative h-[420px] cursor-grab overflow-hidden rounded-3xl bg-gray-100 shadow-xl active:cursor-grabbing md:h-[480px]"
+                                onPointerDown={handlePointerDown}
+                                onPointerMove={handlePointerMove}
+                                onPointerUp={handlePointerUp}
+                                onPointerLeave={handlePointerUp}
+                            >
 
                                 <img
                                     src={selectedImage}
-                                    alt="Profissional de assistência informática"
-                                    className="h-[480px] w-full object-cover"
+                                    alt="Engenheiro Informático"
+                                    className="h-full w-full object-cover transition duration-500 hover:scale-[1.02]"
+                                    style={{
+                                        objectPosition: `${imagePosition.x}% ${Math.min(imagePosition.y + 8, 90)}%`,
+                                    }}
                                 />
+
+                                {/* Escolher foto */}
 
                                 <label
                                     htmlFor={photoInputId}
-                                    className="absolute bottom-4 right-4 flex cursor-pointer items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-[#0F2747] shadow-md backdrop-blur-sm transition hover:bg-white"
+                                    className="absolute bottom-5 right-5 flex cursor-pointer items-center gap-2 rounded-full bg-white/95 px-4 py-2.5 text-sm font-semibold text-[#0F2747] shadow-lg backdrop-blur-sm transition hover:-translate-y-0.5 hover:bg-white"
                                 >
+
                                     <span>📷</span>
-                                    <span>Escolher foto</span>
+
+                                    <span>
+                                        Escolher foto
+                                    </span>
+
                                     <input
                                         id={photoInputId}
                                         type="file"
@@ -89,6 +217,7 @@ const About = () => {
                                         onChange={handleImageChange}
                                         className="hidden"
                                     />
+
                                 </label>
 
                             </div>
@@ -97,72 +226,60 @@ const About = () => {
 
 
                         {/* TEXTO */}
+
                         <div>
 
-                            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#155E75]">
-                                Assistência Informática
+                            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#155E75]">
+                                Engenharia Informática
                             </p>
 
                             <h2 className="mt-3 text-3xl font-bold leading-tight text-[#0F2747] md:text-4xl">
-                                Experiência, apoio e soluções tecnológicas ao seu alcance
+                                Tecnologia, desenvolvimento e soluções digitais
                             </h2>
 
-                            <p className="mt-6 leading-8 text-gray-600">
-                                Sou um profissional de assistência informática com foco em soluções práticas, seguras e eficazes para pessoas e empresas.
-                                A minha missão é ajudar a resolver problemas tecnológicos com rapidez, clareza e atenção às necessidades de cada cliente.
-                            </p>
+                            <div className="mt-6 space-y-4 text-gray-600">
 
-                            <p className="mt-4 leading-8 text-gray-600">
-                                Ao longo da minha atividade, tenho trabalhado em suporte técnico, manutenção de equipamentos, configuração de redes e desenvolvimento de soluções digitais,
-                                sempre com uma abordagem profissional, responsável e orientada para resultados reais.
-                            </p>
+                                <p className="leading-8">
+                                    Sou Engenheiro Informático e trabalho no
+                                    desenvolvimento de soluções tecnológicas
+                                    para pessoas, profissionais e pequenos
+                                    negócios.
+                                </p>
 
+                                <p className="leading-8">
+                                    O meu foco está em transformar necessidades
+                                    reais em soluções práticas, funcionais e
+                                    seguras, utilizando tecnologias modernas de
+                                    desenvolvimento de software.
+                                </p>
 
-                            {/* VALORES */}
-                            <div className="mt-8 flex flex-wrap gap-3">
-
-                                <span className="rounded-full bg-[#0F2747]/5 px-4 py-2 text-sm font-medium text-[#0F2747]">
-                                    ✓ Profissionalismo
-                                </span>
-
-                                <span className="rounded-full bg-[#0F2747]/5 px-4 py-2 text-sm font-medium text-[#0F2747]">
-                                    ✓ Confiança
-                                </span>
-
-                                <span className="rounded-full bg-[#0F2747]/5 px-4 py-2 text-sm font-medium text-[#0F2747]">
-                                    ✓ Segurança
-                                </span>
-
-                                <span className="rounded-full bg-[#0F2747]/5 px-4 py-2 text-sm font-medium text-[#0F2747]">
-                                    ✓ Organização
-                                </span>
+                                <p className="leading-8">
+                                    Tenho conhecimentos em desenvolvimento web,
+                                    bases de dados, redes, controlo de versões,
+                                    Docker e ferramentas de qualidade de
+                                    software.
+                                </p>
 
                             </div>
 
 
-                            <Link
-                                to="/contacto"
-                                className="
-                                    mt-8
-                                    inline-flex
-                                    items-center
-                                    rounded-full
-                                    bg-[#D4A72C]
-                                    px-7
-                                    py-3.5
-                                    font-semibold
-                                    text-[#0F2747]
-                                    shadow-md
-                                    transition
-                                    duration-300
-                                    hover:-translate-y-1
-                                    hover:bg-[#e5b936]
-                                    hover:shadow-lg
-                                "
-                            >
-                                Entrar em contacto
-                                <span className="ml-2">→</span>
-                            </Link>
+                            {/* CTA */}
+
+                            <div className="mt-8">
+
+                                <Link
+                                    to="/contacto"
+                                    className="inline-flex items-center rounded-full bg-[#D4A72C] px-7 py-3.5 font-bold text-[#0F2747] shadow-md transition duration-300 hover:-translate-y-1 hover:bg-[#e5b936] hover:shadow-lg"
+                                >
+                                    Entrar em contacto
+
+                                    <span className="ml-2 text-lg">
+                                        →
+                                    </span>
+
+                                </Link>
+
+                            </div>
 
                         </div>
 
@@ -177,9 +294,9 @@ const About = () => {
 
                 <div className="mx-auto mt-28 max-w-7xl px-6 lg:px-8">
 
-                    <div className="text-center">
+                    <div className="mx-auto max-w-2xl text-center">
 
-                        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#155E75]">
+                        <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#155E75]">
                             O que faço
                         </p>
 
@@ -187,95 +304,80 @@ const About = () => {
                             Como posso ajudar
                         </h2>
 
-                        <p className="mx-auto mt-4 max-w-2xl leading-7 text-gray-600">
-                            Soluções práticas para diferentes necessidades de suporte, manutenção e tecnologia digital.
+                        <p className="mt-4 leading-7 text-gray-600">
+                            Soluções práticas para diferentes necessidades
+                            de suporte, software, desenvolvimento e tecnologia
+                            digital.
                         </p>
 
                     </div>
 
 
+                    {/* CARDS */}
+
                     <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
 
-                        {/* SUPORTE */}
-                        <div className="group rounded-2xl border border-gray-200 bg-white p-7 transition duration-300 hover:-translate-y-1 hover:border-[#155E75]/30 hover:shadow-xl">
+                        {services.map((service) => (
+                            <div
+                                key={service.title}
+                                className="group flex flex-col rounded-2xl border border-gray-200 bg-white p-7 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-[#155E75]/30 hover:shadow-xl"
+                            >
 
-                            <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-[#0F2747]/5 text-2xl">
-                                🖥️
+                                {/* ÍCONE */}
+
+                                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-[#0F2747]/5 text-[#0F2747] transition duration-300 group-hover:bg-[#155E75]/10 group-hover:text-[#155E75]">
+
+                                    <service.icon
+                                        size={28}
+                                        strokeWidth={1.8}
+                                    />
+
+                                </div>
+
+
+                                {/* TÍTULO */}
+
+                                <h3 className="text-lg font-bold text-[#0F2747]">
+                                    {service.title}
+                                </h3>
+
+
+                                {/* DESCRIÇÃO */}
+
+                                <p className="mt-3 flex-1 text-sm leading-6 text-gray-600">
+                                    {service.description}
+                                </p>
+
+
+                                {/* DESTAQUE */}
+
+                                <div className="mt-6 border-t border-gray-100 pt-4">
+
+                                    <span className="inline-flex items-center gap-1 text-sm font-bold text-[#155E75]">
+
+                                        {service.label}
+
+                                        <span className="transition group-hover:translate-x-1">
+                                            →
+                                        </span>
+
+                                    </span>
+
+                                </div>
+
                             </div>
-
-                            <h3 className="text-lg font-bold text-[#0F2747]">
-                                Suporte Técnico
-                            </h3>
-
-                            <p className="mt-3 text-sm leading-6 text-gray-600">
-                                Diagnóstico preciso e resolução de problemas informáticos com eficácia.
-                            </p>
-
-                        </div>
-
-
-                        {/* MANUTENÇÃO */}
-                        <div className="group rounded-2xl border border-gray-200 bg-white p-7 transition duration-300 hover:-translate-y-1 hover:border-[#155E75]/30 hover:shadow-xl">
-
-                            <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-[#0F2747]/5 text-2xl">
-                                🔧
-                            </div>
-
-                            <h3 className="text-lg font-bold text-[#0F2747]">
-                                Manutenção
-                            </h3>
-
-                            <p className="mt-3 text-sm leading-6 text-gray-600">
-                                Manutenção, atualização e configuração de computadores e equipamentos digitais.
-                            </p>
-
-                        </div>
-
-
-                        {/* REDES */}
-                        <div className="group rounded-2xl border border-gray-200 bg-white p-7 transition duration-300 hover:-translate-y-1 hover:border-[#155E75]/30 hover:shadow-xl">
-
-                            <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-[#0F2747]/5 text-2xl">
-                                🌐
-                            </div>
-
-                            <h3 className="text-lg font-bold text-[#0F2747]">
-                                Redes
-                            </h3>
-
-                            <p className="mt-3 text-sm leading-6 text-gray-600">
-                                Configuração e otimização de redes, Internet e conectividade profissional.
-                            </p>
-
-                        </div>
-
-
-                        {/* SOLUÇÕES */}
-                        <div className="group rounded-2xl border border-gray-200 bg-white p-7 transition duration-300 hover:-translate-y-1 hover:border-[#155E75]/30 hover:shadow-xl">
-
-                            <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-[#0F2747]/5 text-2xl">
-                                💻
-                            </div>
-
-                            <h3 className="text-lg font-bold text-[#0F2747]">
-                                Soluções Digitais
-                            </h3>
-
-                            <p className="mt-3 text-sm leading-6 text-gray-600">
-                                Desenvolvimento de soluções digitais adaptadas às necessidades do cliente.
-                            </p>
-
-                        </div>
+                        ))}
 
                     </div>
 
 
                     {/* LINK PARA SERVIÇOS */}
+
                     <div className="mt-8 text-center">
 
                         <Link
                             to="/servicos"
-                            className="font-semibold text-[#155E75] transition hover:text-[#0F2747]"
+                            className="font-bold text-[#155E75] transition hover:text-[#0F2747]"
                         >
                             Ver todos os serviços →
                         </Link>
@@ -293,9 +395,9 @@ const About = () => {
 
                     <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
 
-                        <div className="text-center">
+                        <div className="mx-auto max-w-2xl text-center">
 
-                            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#155E75]">
+                            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#155E75]">
                                 Processo
                             </p>
 
@@ -303,67 +405,59 @@ const About = () => {
                                 Como trabalho
                             </h2>
 
-                            <p className="mx-auto mt-4 max-w-2xl leading-7 text-gray-600">
-                                Um processo simples, claro e organizado para encontrar a melhor solução para cada caso.
+                            <p className="mt-4 leading-7 text-gray-600">
+                                Um processo simples, claro e organizado para
+                                encontrar a solução adequada para cada caso.
                             </p>
 
                         </div>
 
 
+                        {/* ETAPAS */}
+
                         <div className="relative mt-14 grid gap-10 md:grid-cols-3">
 
-                            {/* PASSO 1 */}
-                            <div className="relative text-center">
+                            {/* Linha */}
 
-                                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#0F2747] text-lg font-bold text-white">
-                                    01
+                            <div className="absolute left-[16%] right-[16%] top-7 hidden h-px bg-[#155E75]/20 md:block" />
+
+
+                            {steps.map((step, index) => (
+                                <div
+                                    key={step.number}
+                                    className="relative z-10 text-center"
+                                >
+
+                                    {/* Número */}
+
+                                    <div
+                                        className={`mx-auto flex h-14 w-14 items-center justify-center rounded-full text-lg font-bold shadow-md ${
+                                            index === 0
+                                                ? "bg-[#0F2747] text-white"
+                                                : index === 1
+                                                    ? "bg-[#155E75] text-white"
+                                                    : "bg-[#D4A72C] text-[#0F2747]"
+                                        }`}
+                                    >
+                                        {step.number}
+                                    </div>
+
+
+                                    {/* Título */}
+
+                                    <h3 className="mt-5 text-xl font-bold text-[#0F2747]">
+                                        {step.title}
+                                    </h3>
+
+
+                                    {/* Descrição */}
+
+                                    <p className="mx-auto mt-3 max-w-sm leading-7 text-gray-600">
+                                        {step.description}
+                                    </p>
+
                                 </div>
-
-                                <h3 className="mt-5 text-xl font-bold text-[#0F2747]">
-                                    Diagnóstico
-                                </h3>
-
-                                <p className="mt-3 leading-7 text-gray-600">
-                                    Análise inicial do problema e compreensão das necessidades do cliente.
-                                </p>
-
-                            </div>
-
-
-                            {/* PASSO 2 */}
-                            <div className="relative text-center">
-
-                                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#155E75] text-lg font-bold text-white">
-                                    02
-                                </div>
-
-                                <h3 className="mt-5 text-xl font-bold text-[#0F2747]">
-                                    Solução
-                                </h3>
-
-                                <p className="mt-3 leading-7 text-gray-600">
-                                    Aplicação de uma solução adequada, segura, eficiente e adaptada ao contexto.
-                                </p>
-
-                            </div>
-
-
-                            {/* PASSO 3 */}
-                            <div className="relative text-center">
-
-                                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#D4A72C] text-lg font-bold text-[#0F2747]">
-                                    03
-                                </div>
-
-                                <h3 className="mt-5 text-xl font-bold text-[#0F2747]">
-                                    Acompanhamento
-                                </h3>
-
-                                <p className="mt-3 leading-7 text-gray-600">
-                                    Acompanhamento contínuo e apoio para garantir a melhor experiência após a resolução.
-                                </p>
-
-                            </div>
+                            ))}
 
                         </div>
 
@@ -373,14 +467,14 @@ const About = () => {
 
 
                 {/* =================================================
-                    TECNOLOGIAS E FERRAMENTAS
+                    TECNOLOGIAS
                 ================================================== */}
 
                 <div className="mx-auto max-w-7xl px-6 py-28 lg:px-8">
 
-                    <div className="text-center">
+                    <div className="mx-auto max-w-2xl text-center">
 
-                        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#155E75]">
+                        <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#155E75]">
                             Tecnologias
                         </p>
 
@@ -388,58 +482,87 @@ const About = () => {
                             Tecnologias e ferramentas
                         </h2>
 
-                        <p className="mx-auto mt-4 max-w-2xl leading-7 text-gray-600">
-                            Ferramentas utilizadas no desenvolvimento,
-                            suporte e manutenção de soluções tecnológicas.
+                        <p className="mt-4 leading-7 text-gray-600">
+                            Tecnologias e ferramentas utilizadas no
+                            desenvolvimento de soluções digitais e no trabalho
+                            com software.
                         </p>
 
                     </div>
 
 
+                    {/* GRID */}
+
                     <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
 
-                        {[
-                            "React",
-                            "JavaScript",
-                            "Vite",
-                            "Tailwind CSS",
-                            "Node.js",
-                            "Express",
-                            "PostgreSQL",
-                            "Git",
-                            "GitHub",
-                            "Docker",
-                            "SonarQube",
-                            "VS Code",
-                        ].map((tool) => (
-
+                        {technologies.map((tool) => (
                             <div
                                 key={tool}
-                                className="
-                                    flex
-                                    min-h-[100px]
-                                    items-center
-                                    justify-center
-                                    rounded-2xl
-                                    border
-                                    border-gray-200
-                                    bg-white
-                                    px-4
-                                    text-center
-                                    font-semibold
-                                    text-[#0F2747]
-                                    shadow-sm
-                                    transition
-                                    duration-300
-                                    hover:-translate-y-1
-                                    hover:border-[#155E75]/30
-                                    hover:shadow-lg
-                                "
+                                className="group flex min-h-[100px] items-center justify-center rounded-2xl border border-gray-200 bg-white px-4 text-center font-semibold text-[#0F2747] shadow-sm transition duration-300 hover:-translate-y-1 hover:border-[#155E75]/30 hover:shadow-lg"
                             >
-                                {tool}
+
+                                <span className="transition duration-300 group-hover:text-[#155E75]">
+                                    {tool}
+                                </span>
+
+                            </div>
+                        ))}
+
+                    </div>
+
+                </div>
+
+
+                {/* =================================================
+                    CTA FINAL
+                ================================================== */}
+
+                <div className="mx-auto max-w-7xl px-6 pb-20 lg:px-8">
+
+                    <div className="relative overflow-hidden rounded-3xl bg-[#0F2747] px-6 py-12 text-center md:px-12">
+
+                        {/* Decoração */}
+
+                        <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-[#155E75]/30 blur-3xl" />
+
+                        <div className="absolute -bottom-20 -left-20 h-60 w-60 rounded-full bg-[#D4A72C]/20 blur-3xl" />
+
+
+                        <div className="relative">
+
+                            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#D4A72C]">
+                                Precisa de apoio?
+                            </p>
+
+                            <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">
+                                Vamos encontrar a solução adequada.
+                            </h2>
+
+                            <p className="mx-auto mt-4 max-w-2xl leading-7 text-white/70">
+                                Entre em contacto para apresentar a sua
+                                necessidade e saber como posso ajudar.
+                            </p>
+
+
+                            {/* BOTÃO */}
+
+                            <div className="mt-8">
+
+                                <Link
+                                    to="/contacto"
+                                    className="inline-flex items-center rounded-full bg-[#D4A72C] px-7 py-3.5 font-bold text-[#0F2747] shadow-md transition duration-300 hover:-translate-y-1 hover:bg-[#e5b936] hover:shadow-lg"
+                                >
+                                    Entrar em contacto
+
+                                    <span className="ml-2">
+                                        →
+                                    </span>
+
+                                </Link>
+
                             </div>
 
-                        ))}
+                        </div>
 
                     </div>
 

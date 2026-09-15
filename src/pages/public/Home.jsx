@@ -3,6 +3,7 @@ import PublicLayout from "../../layouts/PublicLayout";
 
 import supportDay from "../../assets/images/support-day.png";
 import supportNight from "../../assets/images/support-night.png";
+import profissionalImage from "../../assets/images/profissional.png";
 
 function Home() {
   return (
@@ -125,11 +126,12 @@ function Home() {
 
               <div className="absolute -left-4 -top-4 h-full w-full rounded-3xl bg-[#D4A72C]/20" />
 
-              <div className="relative overflow-hidden rounded-3xl shadow-lg">
+              <div className="relative h-[380px] overflow-hidden rounded-3xl shadow-lg">
                 <img
-                  src="/images/profissional.jpg"
+                  src={profissionalImage}
                   alt="Profissional de assistência informática"
-                  className="h-[380px] w-full object-cover"
+                  className="h-full w-full object-cover object-center"
+                  style={{ objectPosition: "50% 35%" }}
                 />
               </div>
 
@@ -144,14 +146,11 @@ function Home() {
               </h2>
 
               <p className="mt-6 leading-7 text-gray-600">
-                Profissional de assistência informática dedicado a ajudar
-                pessoas e empresas a resolver problemas tecnológicos de
-                forma simples, segura e eficiente.
+                Sou Engenheiro Informático e desenvolvo soluções tecnológicas práticas, seguras e eficientes para pessoas, profissionais.
               </p>
 
               <p className="mt-4 leading-7 text-gray-600">
-                Oferecemos suporte técnico, manutenção, configuração de
-                sistemas, redes e desenvolvimento de soluções tecnológicas.
+                Presto serviços de desenvolvimento web, suporte informático, configuração de software, bases de dados, redes e soluções digitais, com foco na qualidade, simplicidade e nas necessidades de cada cliente.
               </p>
 
 

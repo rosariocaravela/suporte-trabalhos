@@ -13,7 +13,6 @@ function PublicRoutes() {
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/sobre" element={<About />} />
-            <Route path="/about" element={<About />} />
             <Route path="*" element={<Navigate to="/" replace />} />
              {/*
             <Route path="/services" element={<Services />} />
