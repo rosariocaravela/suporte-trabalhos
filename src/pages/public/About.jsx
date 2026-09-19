@@ -193,7 +193,7 @@ const About = () => {
                                     alt="Engenheiro Informático"
                                     className="h-full w-full object-cover transition duration-500 hover:scale-[1.02]"
                                     style={{
-                                        objectPosition: `${imagePosition.x}% ${Math.min(imagePosition.y + 8, 90)}%`,
+                                        objectPosition: `${imagePosition.x}% ${imagePosition.y}%`,
                                     }}
                                 />
 

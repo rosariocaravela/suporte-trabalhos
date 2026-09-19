@@ -53,6 +53,14 @@ function Navbar() {
             Conteúdos
           </NavLink>
 
+          <NavLink to="/videos" className={navLinkClass}>
+            Vídeos
+          </NavLink>
+
+          <NavLink to="/faq" className={navLinkClass}>
+            FAQ
+          </NavLink>
+
           <NavLink to="/contacto" className={navLinkClass}>
             Contacto
           </NavLink>
@@ -82,9 +90,10 @@ function Navbar() {
             Entrar
           </Link>
 
-          <Link
+          <NavLink
             to="/solicitar-servico"
             className="
+              relative
               rounded-lg
               bg-accent
               px-5
@@ -101,7 +110,7 @@ function Navbar() {
             "
           >
             Solicitar suporte
-          </Link>
+          </NavLink>
 
         </div>
 
@@ -178,6 +187,22 @@ function Navbar() {
               </NavLink>
 
               <NavLink
+                to="/videos"
+                onClick={closeMenu}
+                className={navLinkClass}
+              >
+                Vídeos
+              </NavLink>
+
+              <NavLink
+                to="/faq"
+                onClick={closeMenu}
+                className={navLinkClass}
+              >
+                FAQ
+              </NavLink>
+
+              <NavLink
                 to="/contacto"
                 onClick={closeMenu}
                 className={navLinkClass}
@@ -212,10 +237,11 @@ function Navbar() {
                 Entrar
               </Link>
 
-              <Link
+              <NavLink
                 to="/solicitar-servico"
                 onClick={closeMenu}
                 className="
+                  relative
                   w-full
                   rounded-lg
                   bg-accent
@@ -230,7 +256,7 @@ function Navbar() {
                 "
               >
                 Solicitar suporte
-              </Link>
+              </NavLink>
 
             </div>
 

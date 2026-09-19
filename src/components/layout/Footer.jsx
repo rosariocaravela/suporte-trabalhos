@@ -113,7 +113,7 @@ function Footer() {
 
                             <li>
                                 <Link
-                                    to="/servicos"
+                                    to="/servicos#manutencao"
                                     className="text-white/70 transition hover:text-accent"
                                 >
                                     Manutenção de computadores
@@ -122,7 +122,7 @@ function Footer() {
 
                             <li>
                                 <Link
-                                    to="/servicos"
+                                    to="/servicos#instalacao"
                                     className="text-white/70 transition hover:text-accent"
                                 >
                                     Instalação de software
@@ -131,7 +131,7 @@ function Footer() {
 
                             <li>
                                 <Link
-                                    to="/servicos"
+                                    to="/servicos#redes"
                                     className="text-white/70 transition hover:text-accent"
                                 >
                                     Redes e Internet
@@ -140,7 +140,7 @@ function Footer() {
 
                             <li>
                                 <Link
-                                    to="/servicos"
+                                    to="/servicos#backup"
                                     className="text-white/70 transition hover:text-accent"
                                 >
                                     Backup e recuperação
@@ -149,7 +149,7 @@ function Footer() {
 
                             <li>
                                 <Link
-                                    to="/servicos"
+                                    to="/servicos#remoto"
                                     className="text-white/70 transition hover:text-accent"
                                 >
                                     Suporte remoto
