@@ -2,27 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, BookOpen, Search, ShieldCheck } from "lucide-react";
 import PublicLayout from "../../layouts/PublicLayout";
+import Container from "../../components/common/Container";
+import SectionHeading from "../../components/common/SectionHeading";
 import ContentCard from "../../components/contents/ContentCard";
-import performanceImage from "../../assets/images/contents/performance.jpg";
-import maintenanceImage from "../../assets/images/contents/maintenance.jpg";
-import backupImage from "../../assets/images/contents/backup.jpg";
-import networksImage from "../../assets/images/contents/networks.jpg";
-import securityImage from "../../assets/images/contents/security.jpg";
-import installationImage from "../../assets/images/services/installation.jpg";
-import remoteImage from "../../assets/images/services/remote.jpg";
-
-const categories = ["Todos", "Informática", "Redes", "Segurança", "Manutenção", "Backups", "Instalação", "Suporte remoto"];
-
-const contents = [
-  { id: "video-performance", category: "Informática", date: "20 Set 2026", title: "Como melhorar o desempenho do computador", description: "Passos simples para identificar lentidão, libertar espaço e tornar o equipamento mais estável.", image: performanceImage },
-  { id: "video-maintenance", category: "Manutenção", date: "18 Set 2026", title: "Manutenção preventiva: por onde começar", description: "Cuidados práticos para reduzir falhas e prolongar a vida útil do computador.", image: maintenanceImage },
-  { id: "video-networks", category: "Redes", date: "15 Set 2026", title: "Wi-Fi lento: causas mais comuns", description: "Veja o que pode afetar a ligação e quais verificações fazer antes de pedir assistência.", image: networksImage },
-  { id: "video-security", category: "Segurança", date: "12 Set 2026", title: "Como proteger os seus equipamentos", description: "Boas práticas para reduzir riscos, proteger contas e manter os dados mais seguros.", image: securityImage },
-  { id: "video-backup", category: "Backups", date: "10 Set 2026", title: "Backup: o que deve guardar primeiro", description: "Organize cópias dos seus documentos importantes e evite perder dados quando algo falhar.", image: backupImage },
-  { id: "video-installation", category: "Instalação", date: "08 Set 2026", title: "Cuidados antes de instalar um programa", description: "Saiba como verificar a origem dos programas e evitar instalações desnecessárias ou inseguras.", image: installationImage },
-  { id: "video-remote", category: "Suporte remoto", date: "05 Set 2026", title: "Como funciona o suporte remoto", description: "Entenda como receber assistência à distância com segurança e acompanhamento profissional.", image: remoteImage },
-  { id: "video-recovery", category: "Backups", date: "02 Set 2026", title: "O que fazer quando perde um ficheiro", description: "Primeiros passos para tentar recuperar um documento apagado ou inacessível.", image: backupImage },
-];
+import contents, { contentCategories as categories } from "../../data/contents";
 
 function Contents() {
   const [activeCategory, setActiveCategory] = useState("Todos");
@@ -38,14 +21,13 @@ function Contents() {
   return (
     <PublicLayout>
       <main id="conteudos" className="bg-[#F5F7FA] px-6 py-16 lg:px-8 lg:py-24">
-        <div className="mx-auto max-w-7xl">
-          <header className="mx-auto max-w-3xl text-center">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#155E75]/15 bg-[#155E75]/5 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[#155E75]">
-              <BookOpen size={15} /> Conhecimento e tecnologia
-            </div>
-            <h1 className="text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl">Conteúdos para resolver melhor</h1>
-            <p className="mt-5 text-lg leading-8 text-gray-600">Dicas práticas para cuidar dos seus equipamentos, melhorar a ligação e proteger os seus dados.</p>
-          </header>
+        <Container>
+          <SectionHeading
+            eyebrow="Conhecimento e tecnologia"
+            icon={<BookOpen size={15} />}
+            title="Conteúdos para resolver melhor"
+            description="Dicas práticas para cuidar dos seus equipamentos, melhorar a ligação e proteger os seus dados."
+          />
 
           <div className="mt-12 flex gap-2 overflow-x-auto pb-2" aria-label="Categorias de conteúdos">
             {categories.map((category) => (
@@ -109,7 +91,7 @@ function Contents() {
             </div>
             <Link to="/solicitar-servico" className="mt-7 inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#D4A72C] px-6 py-3.5 font-bold text-[#0F2747] transition hover:bg-[#e5b936] md:mt-0">Solicitar suporte <ArrowRight size={18} /></Link>
           </section>
-        </div>
+        </Container>
       </main>
     </PublicLayout>
   );

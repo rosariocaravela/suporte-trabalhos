@@ -11,25 +11,25 @@ function ContentCard({ content, onRead }) {
           className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0F2747]/45 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/45 to-transparent" />
       </div>
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-center justify-between gap-3">
-          <span className="rounded-md bg-[#155E75]/10 px-3 py-1 text-xs font-bold text-[#155E75]">
+          <span className="rounded-md bg-secondary/10 px-3 py-1 text-xs font-bold text-secondary">
             {content.category}
           </span>
           <time className="text-xs text-gray-400">{content.date}</time>
         </div>
-        <h2 className="mt-5 text-xl font-bold leading-snug text-[#0F2747] transition group-hover:text-[#155E75]">
+        <h2 className="mt-5 text-xl font-bold leading-snug text-primary transition group-hover:text-secondary">
           {content.title}
         </h2>
         <p className="mt-3 flex-1 leading-7 text-gray-600">{content.description}</p>
         <div className="mt-6 border-t border-gray-100 pt-4">
           <div className="flex items-center justify-between gap-3">
-            <button type="button" onClick={() => onRead(content)} className="font-semibold text-[#155E75] hover:text-[#0F2747]">
+            <button type="button" onClick={() => onRead(content)} className="font-semibold text-secondary hover:text-primary">
               Ler artigo
             </button>
-            <Link to={`/videos#${content.id}`} className="inline-flex items-center gap-2 font-semibold text-[#155E75] transition group-hover:gap-3">
+            <Link to={`/videos#${content.id}`} className="inline-flex items-center gap-2 font-semibold text-secondary transition group-hover:gap-3">
               Ver vídeo <ArrowRight size={17} />
             </Link>
           </div>

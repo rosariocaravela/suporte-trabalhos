@@ -1,5 +1,7 @@
 import PublicLayout from "../../layouts/PublicLayout";
 import useContactForm from "../../hooks/useContactForm";
+import Button from "../../components/common/Button";
+import FormField from "../../components/forms/FormField";
 
 function ServiceRequest() {
 	const {
@@ -32,7 +34,7 @@ function ServiceRequest() {
 						onSubmit={handleSubmit}
 						className="mt-10 grid gap-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:grid-cols-2 sm:p-8"
 					>
-						<Field
+						<FormField
 							label="Nome completo"
 							name="nome"
 							value={formData.nome}
@@ -40,7 +42,7 @@ function ServiceRequest() {
 							placeholder="Digite o seu nome"
 							required
 						/>
-						<Field
+						<FormField
 							label="Email"
 							name="email"
 							type="email"
@@ -49,7 +51,7 @@ function ServiceRequest() {
 							placeholder="exemplo@email.com"
 							required
 						/>
-						<Field
+						<FormField
 							label="Telefone / WhatsApp"
 							name="telefone"
 							type="tel"
@@ -58,29 +60,24 @@ function ServiceRequest() {
 							placeholder="+258 XX XXX XXXX"
 						/>
 
-						<div>
-							<label htmlFor="servico" className="mb-2 block text-sm font-semibold text-[#0F2747]">
-								Tipo de suporte
-							</label>
-							<select
-								id="servico"
-								name="servico"
-								value={formData.servico}
-								onChange={handleChange}
-								required
-								className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3.5 outline-none focus:border-[#155E75] focus:ring-2 focus:ring-[#155E75]/10"
-							>
-								<option value="">Selecione uma opção</option>
-								<option value="reparacao">Diagnóstico e reparação</option>
-								<option value="instalacao">Formatação e instalação</option>
-								<option value="manutencao">Manutenção e otimização</option>
-								<option value="backup">Backup e recuperação de dados</option>
-								<option value="redes">Redes e conectividade</option>
-								<option value="remoto">Suporte remoto</option>
-							</select>
-						</div>
+						<FormField
+							as="select"
+							label="Tipo de suporte"
+							name="servico"
+							value={formData.servico}
+							onChange={handleChange}
+							required
+						>
+							<option value="">Selecione uma opção</option>
+							<option value="reparacao">Diagnóstico e reparação</option>
+							<option value="instalacao">Formatação e instalação</option>
+							<option value="manutencao">Manutenção e otimização</option>
+							<option value="backup">Backup e recuperação de dados</option>
+							<option value="redes">Redes e conectividade</option>
+							<option value="remoto">Suporte remoto</option>
+						</FormField>
 
-						<Field
+						<FormField
 							label="Assunto"
 							name="assunto"
 							value={formData.assunto}
@@ -90,21 +87,17 @@ function ServiceRequest() {
 							className="sm:col-span-2"
 						/>
 
-						<div className="sm:col-span-2">
-							<label htmlFor="mensagem" className="mb-2 block text-sm font-semibold text-[#0F2747]">
-								Descreva o problema
-							</label>
-							<textarea
-								id="mensagem"
-								name="mensagem"
-								value={formData.mensagem}
-								onChange={handleChange}
-								placeholder="Explique o que aconteceu e o que precisa"
-								rows="6"
-								required
-								className="w-full resize-y rounded-xl border border-gray-300 px-4 py-3.5 outline-none focus:border-[#155E75] focus:ring-2 focus:ring-[#155E75]/10"
-							/>
-						</div>
+						<FormField
+							as="textarea"
+							label="Descreva o problema"
+							name="mensagem"
+							value={formData.mensagem}
+							onChange={handleChange}
+							placeholder="Explique o que aconteceu e o que precisa"
+							rows="6"
+							required
+							className="sm:col-span-2"
+						/>
 
 						{successMessage && (
 							<p className="sm:col-span-2 rounded-xl bg-green-50 p-4 text-sm text-green-700">
@@ -117,33 +110,17 @@ function ServiceRequest() {
 							</p>
 						)}
 
-						<button
+						<Button
 							type="submit"
 							disabled={isSubmitting}
-							className="sm:col-span-2 inline-flex items-center justify-center rounded-xl bg-[#D4A72C] px-6 py-3.5 font-bold text-[#0F2747] transition hover:bg-[#e5b936] disabled:cursor-not-allowed disabled:opacity-60"
+							className="sm:col-span-2 w-full disabled:cursor-not-allowed disabled:opacity-60"
 						>
 							{isSubmitting ? "A enviar..." : "Enviar pedido de suporte"}
-						</button>
+						</Button>
 					</form>
 				</div>
 			</main>
 		</PublicLayout>
-	);
-}
-
-function Field({ label, name, className = "", ...props }) {
-	return (
-		<div className={className}>
-			<label htmlFor={name} className="mb-2 block text-sm font-semibold text-[#0F2747]">
-				{label}
-			</label>
-			<input
-				id={name}
-				name={name}
-				className="w-full rounded-xl border border-gray-300 px-4 py-3.5 outline-none focus:border-[#155E75] focus:ring-2 focus:ring-[#155E75]/10"
-				{...props}
-			/>
-		</div>
 	);
 }
 

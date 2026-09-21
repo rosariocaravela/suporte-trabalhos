@@ -6,8 +6,8 @@ import {
   Wifi,
   Monitor,
 } from "lucide-react";
-import repairImage from "../assets/images/services/repair.jpg";
-import installationImage from "../assets/images/services/installation.jpg";
+import repairImage from "../assets/images/services/repair.png";
+import installationImage from "../assets/images/services/installation.png";
 import maintenanceImage from "../assets/images/services/maintenance.jpg";
 import backupImage from "../assets/images/services/backup.jpg";
 import networksImage from "../assets/images/services/networks.jpg";

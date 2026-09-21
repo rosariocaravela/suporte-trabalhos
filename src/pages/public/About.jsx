@@ -3,98 +3,9 @@ import PublicLayout from "../../layouts/PublicLayout";
 import useImagePreview from "../../hooks/useImagePreview";
 import useImagePosition from "../../hooks/useImagePosition";
 import profissionalImage from "../../assets/images/profissional.png";
-
-import {
-    MonitorCog,
-    Wrench,
-    Network,
-    Code2,
-} from "lucide-react";
+import { aboutServices as services, aboutSteps as steps, technologies } from "../../data/about";
 
 const DEFAULT_IMAGE = profissionalImage;
-
-/* =====================================================
-   SERVIÇOS
-===================================================== */
-
-const services = [
-    {
-        icon: MonitorCog,
-        title: "Suporte Informático",
-        description:
-            "Diagnóstico e resolução de problemas relacionados com software e sistemas informáticos.",
-        label: "Diagnóstico e suporte",
-    },
-    {
-        icon: Wrench,
-        title: "Manutenção",
-        description:
-            "Configuração, atualização e otimização de sistemas e ambientes informáticos.",
-        label: "Manutenção preventiva",
-    },
-    {
-        icon: Network,
-        title: "Redes e Conectividade",
-        description:
-            "Configuração, diagnóstico e suporte de redes e problemas de conectividade.",
-        label: "Conectividade",
-    },
-    {
-        icon: Code2,
-        title: "Soluções Digitais",
-        description:
-            "Desenvolvimento de soluções web e aplicações adaptadas às necessidades do cliente.",
-        label: "Desenvolvimento",
-    },
-];
-
-/* =====================================================
-   PROCESSO DE TRABALHO
-===================================================== */
-
-const steps = [
-    {
-        number: "01",
-        title: "Diagnóstico",
-        description:
-            "Análise inicial do problema e compreensão das necessidades do cliente.",
-    },
-    {
-        number: "02",
-        title: "Solução",
-        description:
-            "Aplicação de uma solução adequada, segura, eficiente e adaptada ao contexto.",
-    },
-    {
-        number: "03",
-        title: "Acompanhamento",
-        description:
-            "Acompanhamento e apoio para garantir uma boa experiência após a resolução.",
-    },
-];
-
-/* =====================================================
-   TECNOLOGIAS
-===================================================== */
-
-const technologies = [
-    "React",
-    "JavaScript",
-    "Vite",
-    "Tailwind CSS",
-    "Node.js",
-    "Express",
-    "PostgreSQL",
-    "Git",
-    "GitHub",
-    "Docker",
-    "SonarQube",
-    "VS Code",
-];
-
-/* =====================================================
-   COMPONENTE
-===================================================== */
 
 const About = () => {
     const {
@@ -120,9 +31,7 @@ const About = () => {
                 className="bg-white"
             >
 
-                {/* =================================================
-                    CABEÇALHO
-                ================================================== */}
+                {/* CABEÇALHO */}
 
                 <div className="mx-auto max-w-7xl px-6 pb-14 pt-12 lg:px-8 lg:pt-16">
 
@@ -163,9 +72,7 @@ const About = () => {
                 </div>
 
 
-                {/* =================================================
-                    APRESENTAÇÃO DO PROFISSIONAL
-                ================================================== */}
+                {/* APRESENTAÇÃO DO PROFISSIONAL */}
 
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
 
@@ -288,9 +195,7 @@ const About = () => {
                 </div>
 
 
-                {/* =================================================
-                    COMO POSSO AJUDAR
-                ================================================== */}
+                {/* COMO POSSO AJUDAR */}
 
                 <div className="mx-auto mt-28 max-w-7xl px-6 lg:px-8">
 
@@ -387,9 +292,7 @@ const About = () => {
                 </div>
 
 
-                {/* =================================================
-                    COMO TRABALHO
-                ================================================== */}
+                {/* COMO TRABALHO */}
 
                 <div className="mt-28 bg-[#F5F7FA]">
 
@@ -431,13 +334,12 @@ const About = () => {
                                     {/* Número */}
 
                                     <div
-                                        className={`mx-auto flex h-14 w-14 items-center justify-center rounded-full text-lg font-bold shadow-md ${
-                                            index === 0
+                                        className={`mx-auto flex h-14 w-14 items-center justify-center rounded-full text-lg font-bold shadow-md ${index === 0
                                                 ? "bg-[#0F2747] text-white"
                                                 : index === 1
                                                     ? "bg-[#155E75] text-white"
                                                     : "bg-[#D4A72C] text-[#0F2747]"
-                                        }`}
+                                            }`}
                                     >
                                         {step.number}
                                     </div>
@@ -466,9 +368,7 @@ const About = () => {
                 </div>
 
 
-                {/* =================================================
-                    TECNOLOGIAS
-                ================================================== */}
+                {/* TECNOLOGIAS */}
 
                 <div className="mx-auto max-w-7xl px-6 py-28 lg:px-8">
 
@@ -513,9 +413,7 @@ const About = () => {
                 </div>
 
 
-                {/* =================================================
-                    CTA FINAL
-                ================================================== */}
+                {/* CTA FINAL */}
 
                 <div className="mx-auto max-w-7xl px-6 pb-20 lg:px-8">
 
