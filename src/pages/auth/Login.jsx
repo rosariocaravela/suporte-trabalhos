@@ -35,11 +35,11 @@ function Login() {
 
 	return (
 		<main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-50 px-4 py-10 sm:px-6">
-			<div className="absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-sky-100 via-blue-50/60 to-transparent" />
-			<div className="absolute -left-32 top-1/4 h-64 w-64 rounded-full bg-amber-100/60 blur-3xl" />
-			<div className="absolute -right-32 bottom-0 h-72 w-72 rounded-full bg-sky-100/80 blur-3xl" />
+			<div className="absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-primary/10 via-cyan-100 to-transparent" />
+			<div className="absolute -left-32 top-1/4 h-64 w-64 rounded-full bg-cyan-100/80 blur-3xl" />
+			<div className="absolute -right-32 bottom-0 h-72 w-72 rounded-full bg-blue-100/80 blur-3xl" />
 
-			<section className="relative z-10 w-full max-w-md rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(15,39,71,0.12)] sm:p-9">
+			<section className="relative z-10 w-full max-w-md rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(37,99,235,0.12)] sm:p-9">
 				<div className="mb-8 flex flex-col items-center text-center">
 					<Link
 						to="/"
@@ -48,7 +48,7 @@ function Login() {
 					>
 						<img src={Logo} alt="Suporte-Trabalhos" className="h-full w-full object-contain" />
 					</Link>
-					<h1 className="text-3xl font-bold tracking-tight text-primary">Bem-vindo de volta</h1>
+					<h1 className="text-3xl font-bold tracking-tight text-slate-900">Bem-vindo de volta</h1>
 					<p className="mt-2 max-w-xs text-sm leading-6 text-slate-500">
 						Entre na sua conta para acompanhar os seus pedidos de suporte.
 					</p>

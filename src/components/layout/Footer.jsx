@@ -9,7 +9,7 @@ import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
 function Footer() {
     return (
-        <footer className="w-full bg-primary text-white">
+        <footer className="w-full bg-slate-900 text-white">
 
             {/* CONTEÚDO PRINCIPAL */}
             <div className="mx-auto max-w-7xl px-6 py-10">
@@ -21,7 +21,7 @@ function Footer() {
 
                         <div className="mb-4 flex items-center gap-3">
 
-                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary">
                                 <span className="font-bold text-white">
                                     ST
                                 </span>
@@ -172,7 +172,7 @@ function Footer() {
 
                             <li className="flex items-start gap-3">
 
-                                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-secondary" />
 
                                 <span className="text-white/70">
                                     suportetrabalhos@gmail.com
@@ -182,7 +182,7 @@ function Footer() {
 
                             <li className="flex items-start gap-3">
 
-                                <Phone className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                                <Phone className="mt-0.5 h-4 w-4 shrink-0 text-secondary" />
 
                                 <span className="text-white/70">
                                     +258 84 256 7470
@@ -192,7 +192,7 @@ function Footer() {
 
                             <li className="flex items-start gap-3">
 
-                                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-secondary" />
 
                                 <span className="text-white/70">
                                     Matola, Moçambique
@@ -202,7 +202,7 @@ function Footer() {
 
                             <li className="flex items-start gap-3">
 
-                                <Clock className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                                <Clock className="mt-0.5 h-4 w-4 shrink-0 text-secondary" />
 
                                 <span className="text-white/70">
                                     Segunda a Sábado

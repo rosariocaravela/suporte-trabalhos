@@ -36,29 +36,29 @@ const About = () => {
 
                 <div className="mx-auto max-w-7xl px-6 pb-14 pt-12 lg:px-8 lg:pt-16">
 
-                    <div className="relative overflow-hidden rounded-3xl bg-[#F5F7FA] px-6 py-12 md:px-10 md:py-16">
+                    <div className="relative overflow-hidden rounded-3xl bg-slate-50 px-6 py-12 md:px-10 md:py-16">
 
                         {/* Elementos decorativos */}
 
-                        <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[#155E75]/10 blur-3xl" />
+                        <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
 
-                        <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-[#D4A72C]/10 blur-3xl" />
+                        <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-accent/10 blur-3xl" />
 
                         <div className="relative max-w-3xl">
 
-                            <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-[#155E75]/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#155E75]">
+                            <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-primary">
 
-                                <span className="h-2 w-2 rounded-full bg-[#155E75]" />
+                                <span className="h-2 w-2 rounded-full bg-primary" />
 
                                 Perfil Profissional
 
                             </div>
 
-                            <h1 className="text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl lg:text-6xl">
+                            <h1 className="text-4xl font-bold tracking-tight text-slate-900 md:text-5xl lg:text-6xl">
                                 Sobre o Profissional
                             </h1>
 
-                            <div className="mt-6 h-1 w-20 rounded-full bg-[#D4A72C]" />
+                            <div className="mt-6 h-1 w-20 rounded-full bg-accent" />
 
                             <p className="mt-6 max-w-2xl text-lg leading-8 text-gray-600 md:text-xl">
                                 Engenharia informática aplicada a soluções
@@ -85,7 +85,7 @@ const About = () => {
 
                             {/* Decoração */}
 
-                            <div className="absolute -bottom-5 -left-5 h-full w-full rounded-3xl bg-[#D4A72C]/20" />
+                            <div className="absolute -bottom-5 -left-5 h-full w-full rounded-3xl bg-accent/20" />
 
                             <div
                                 ref={imageFrameRef}
@@ -109,7 +109,7 @@ const About = () => {
 
                                 <label
                                     htmlFor={photoInputId}
-                                    className="absolute bottom-5 right-5 flex cursor-pointer items-center gap-2 rounded-full bg-white/95 px-4 py-2.5 text-sm font-semibold text-[#0F2747] shadow-lg backdrop-blur-sm transition hover:-translate-y-0.5 hover:bg-white"
+                                    className="absolute bottom-5 right-5 flex cursor-pointer items-center gap-2 rounded-full bg-white/95 px-4 py-2.5 text-sm font-semibold text-slate-900 shadow-lg backdrop-blur-sm transition hover:-translate-y-0.5 hover:bg-white"
                                 >
 
                                     <span>📷</span>
@@ -137,11 +137,11 @@ const About = () => {
 
                         <div>
 
-                            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#155E75]">
+                            <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary">
                                 Engenharia Informática
                             </p>
 
-                            <h2 className="mt-3 text-3xl font-bold leading-tight text-[#0F2747] md:text-4xl">
+                            <h2 className="mt-3 text-3xl font-bold leading-tight text-slate-900 md:text-4xl">
                                 Tecnologia, desenvolvimento e soluções digitais
                             </h2>
 
@@ -177,7 +177,7 @@ const About = () => {
 
                                 <Link
                                     to="/contacto"
-                                    className="inline-flex items-center rounded-full bg-[#D4A72C] px-7 py-3.5 font-bold text-[#0F2747] shadow-md transition duration-300 hover:-translate-y-1 hover:bg-[#e5b936] hover:shadow-lg"
+                                    className="inline-flex items-center rounded-full bg-gradient-to-r from-primary to-secondary px-7 py-3.5 font-bold text-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-lg"
                                 >
                                     Entrar em contacto
 
@@ -202,11 +202,11 @@ const About = () => {
 
                     <div className="mx-auto max-w-2xl text-center">
 
-                        <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#155E75]">
+                        <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary">
                             O que faço
                         </p>
 
-                        <h2 className="mt-3 text-3xl font-bold text-[#0F2747] md:text-4xl">
+                        <h2 className="mt-3 text-3xl font-bold text-slate-900 md:text-4xl">
                             Como posso ajudar
                         </h2>
 
@@ -226,12 +226,12 @@ const About = () => {
                         {services.map((service) => (
                             <div
                                 key={service.title}
-                                className="group flex flex-col rounded-2xl border border-gray-200 bg-white p-7 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-[#155E75]/30 hover:shadow-xl"
+                                className="group flex flex-col rounded-2xl border border-slate-200 bg-white p-7 shadow-[0_10px_30px_rgba(15,23,42,0.04)] transition duration-300 hover:-translate-y-1 hover:border-primary/25 hover:shadow-[0_18px_38px_rgba(37,99,235,0.08)]"
                             >
 
                                 {/* ÍCONE */}
 
-                                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-[#0F2747]/5 text-[#0F2747] transition duration-300 group-hover:bg-[#155E75]/10 group-hover:text-[#155E75]">
+                                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/5 text-primary transition duration-300 group-hover:bg-cyan-50 group-hover:text-secondary">
 
                                     <service.icon
                                         size={28}
@@ -243,7 +243,7 @@ const About = () => {
 
                                 {/* TÍTULO */}
 
-                                <h3 className="text-lg font-bold text-[#0F2747]">
+                                <h3 className="text-lg font-bold text-slate-900">
                                     {service.title}
                                 </h3>
 
@@ -257,9 +257,9 @@ const About = () => {
 
                                 {/* DESTAQUE */}
 
-                                <div className="mt-6 border-t border-gray-100 pt-4">
+                                <div className="mt-6 border-t border-slate-100 pt-4">
 
-                                    <span className="inline-flex items-center gap-1 text-sm font-bold text-[#155E75]">
+                                    <span className="inline-flex items-center gap-1 text-sm font-bold text-primary">
 
                                         {service.label}
 
@@ -283,7 +283,7 @@ const About = () => {
 
                         <Link
                             to="/servicos"
-                            className="font-bold text-[#155E75] transition hover:text-[#0F2747]"
+                            className="font-bold text-primary transition hover:text-slate-900"
                         >
                             Ver todos os serviços →
                         </Link>
@@ -301,11 +301,11 @@ const About = () => {
 
                         <div className="mx-auto max-w-2xl text-center">
 
-                            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#155E75]">
+                            <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary">
                                 Processo
                             </p>
 
-                            <h2 className="mt-3 text-3xl font-bold text-[#0F2747] md:text-4xl">
+                            <h2 className="mt-3 text-3xl font-bold text-slate-900 md:text-4xl">
                                 Como trabalho
                             </h2>
 
@@ -323,7 +323,7 @@ const About = () => {
 
                             {/* Linha */}
 
-                            <div className="absolute left-[16%] right-[16%] top-7 hidden h-px bg-[#155E75]/20 md:block" />
+                            <div className="absolute left-[16%] right-[16%] top-7 hidden h-px bg-primary/20 md:block" />
 
 
                             {steps.map((step, index) => (
@@ -336,10 +336,10 @@ const About = () => {
 
                                     <div
                                         className={`mx-auto flex h-14 w-14 items-center justify-center rounded-full text-lg font-bold shadow-md ${index === 0
-                                                ? "bg-[#0F2747] text-white"
+                                                ? "bg-primary text-white"
                                                 : index === 1
-                                                    ? "bg-[#155E75] text-white"
-                                                    : "bg-[#D4A72C] text-[#0F2747]"
+                                                    ? "bg-secondary text-white"
+                                                    : "bg-accent text-slate-900"
                                             }`}
                                     >
                                         {step.number}
@@ -348,7 +348,7 @@ const About = () => {
 
                                     {/* Título */}
 
-                                    <h3 className="mt-5 text-xl font-bold text-[#0F2747]">
+                                    <h3 className="mt-5 text-xl font-bold text-slate-900">
                                         {step.title}
                                     </h3>
 
@@ -375,11 +375,11 @@ const About = () => {
 
                     <div className="mx-auto max-w-2xl text-center">
 
-                        <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#155E75]">
+                        <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary">
                             Tecnologias
                         </p>
 
-                        <h2 className="mt-3 text-3xl font-bold text-[#0F2747] md:text-4xl">
+                        <h2 className="mt-3 text-3xl font-bold text-slate-900 md:text-4xl">
                             Tecnologias e ferramentas
                         </h2>
 
@@ -399,10 +399,10 @@ const About = () => {
                         {technologies.map((tool) => (
                             <div
                                 key={tool}
-                                className="group flex min-h-[100px] items-center justify-center rounded-2xl border border-gray-200 bg-white px-4 text-center font-semibold text-[#0F2747] shadow-sm transition duration-300 hover:-translate-y-1 hover:border-[#155E75]/30 hover:shadow-lg"
+                                className="group flex min-h-[100px] items-center justify-center rounded-2xl border border-gray-200 bg-white px-4 text-center font-semibold text-slate-900 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg"
                             >
 
-                                <span className="transition duration-300 group-hover:text-[#155E75]">
+                                <span className="transition duration-300 group-hover:text-primary">
                                     {tool}
                                 </span>
 
@@ -418,18 +418,18 @@ const About = () => {
 
                 <div className="mx-auto max-w-7xl px-6 pb-20 lg:px-8">
 
-                    <div className="relative overflow-hidden rounded-3xl bg-[#0F2747] px-6 py-12 text-center md:px-12">
+                    <div className="relative overflow-hidden rounded-3xl bg-primary px-6 py-12 text-center md:px-12">
 
                         {/* Decoração */}
 
-                        <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-[#155E75]/30 blur-3xl" />
+                        <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-secondary/30 blur-3xl" />
 
-                        <div className="absolute -bottom-20 -left-20 h-60 w-60 rounded-full bg-[#D4A72C]/20 blur-3xl" />
+                        <div className="absolute -bottom-20 -left-20 h-60 w-60 rounded-full bg-accent/20 blur-3xl" />
 
 
                         <div className="relative">
 
-                            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#D4A72C]">
+                            <p className="text-sm font-bold uppercase tracking-[0.2em] text-accent">
                                 Precisa de apoio?
                             </p>
 
@@ -449,7 +449,7 @@ const About = () => {
 
                                 <Link
                                     to="/contacto"
-                                    className="inline-flex items-center rounded-full bg-[#D4A72C] px-7 py-3.5 font-bold text-[#0F2747] shadow-md transition duration-300 hover:-translate-y-1 hover:bg-[#e5b936] hover:shadow-lg"
+                                    className="inline-flex items-center rounded-full bg-accent px-7 py-3.5 font-bold text-slate-900 shadow-md transition duration-300 hover:-translate-y-1 hover:bg-orange-400 hover:shadow-lg"
                                 >
                                     Entrar em contacto
 

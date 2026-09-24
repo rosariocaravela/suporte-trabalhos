@@ -1,12 +1,18 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #0F2747;
-  --color-secondary: #155E75;
-  --color-accent: #D4A72C;
-  --color-accent-hover: #E5B936;
-  --color-background: #F5F7FA;
-  --color-text: #1F2937;
+  --color-primary: #0E4E9B;
+  --color-secondary: #1CB3C2;
+  --color-accent: #F1B94A;
+  --color-accent-hover: #F7C96C;
+  --color-success: #22C55E;
+  --color-danger: #EF4444;
+  --color-background: #F4F8FF;
+  --color-surface: #FFFFFF;
+  --color-text: #10233A;
+  --color-muted: #5F7285;
+  --color-border: #DDE8F6;
+  --color-dark: #0B1B2D;
 }
 
 html {
@@ -20,8 +26,20 @@ html {
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #ffffff;
+  background-color: var(--color-background);
   color: var(--color-text);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
 
 @keyframes heroDayNight {
@@ -52,4 +70,9 @@ body {
 
 .animate-hero-night {
   animation: heroDayNight 12s ease-in-out infinite;
+}
+
+::selection {
+  background: rgba(6, 182, 212, 0.2);
+  color: var(--color-text);
 }

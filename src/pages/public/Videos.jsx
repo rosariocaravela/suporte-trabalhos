@@ -40,7 +40,7 @@ function Videos() {
 							onChange={(event) => setSearchTerm(event.target.value)}
 							placeholder="Pesquisar vídeos..."
 							aria-label="Pesquisar vídeos"
-							className="w-full rounded-xl border border-gray-200 bg-white py-3.5 pl-11 pr-4 outline-none transition focus:border-[#155E75] focus:ring-2 focus:ring-[#155E75]/10"
+							className="w-full rounded-xl border border-slate-200 bg-white py-3.5 pl-11 pr-4 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
 						/>
 					</div>
 
@@ -58,18 +58,18 @@ function Videos() {
 										alt={video.title}
 										className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
 									/>
-									<div className="absolute inset-0 bg-[#0F2747]/25" />
+									<div className="absolute inset-0 bg-slate-900/20" />
 									<div className="absolute inset-0 flex items-center justify-center">
-										<span className="flex h-14 w-14 items-center justify-center rounded-full bg-[#D4A72C] text-[#0F2747] shadow-lg transition group-hover:scale-110">
+										<span className="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-slate-900 shadow-lg transition group-hover:scale-110">
 											<Play size={24} fill="currentColor" />
 										</span>
 									</div>
 								</div>
 								<div className="flex flex-1 flex-col p-6">
-									<span className="w-fit rounded-md bg-[#155E75]/10 px-3 py-1 text-xs font-bold text-[#155E75]">
+									<span className="w-fit rounded-md bg-cyan-50 px-3 py-1 text-xs font-bold text-primary">
 										{video.category}
 									</span>
-									<h2 className="mt-4 text-lg font-bold leading-snug text-[#0F2747]">
+									<h2 className="mt-4 text-lg font-bold leading-snug text-slate-900">
 										{video.title}
 									</h2>
 									<p className="mt-3 flex-1 leading-7 text-gray-600">{video.description}</p>
@@ -77,7 +77,7 @@ function Videos() {
 										href="https://www.youtube.com/"
 										target="_blank"
 										rel="noreferrer"
-										className="mt-5 inline-flex items-center justify-center gap-2 rounded-xl bg-[#0F2747] px-4 py-3 text-sm font-bold text-white transition hover:bg-[#155E75]"
+										className="mt-5 inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-bold text-white transition hover:bg-secondary"
 									>
 										Assistir vídeo <Play size={16} fill="currentColor" />
 									</a>

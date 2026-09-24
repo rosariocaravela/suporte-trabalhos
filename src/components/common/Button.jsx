@@ -2,9 +2,13 @@ import { Link } from "react-router-dom";
 
 const variants = {
 	primary:
-		"bg-accent text-primary shadow-md hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-lg",
+		"bg-gradient-to-r from-primary to-secondary text-white shadow-md hover:from-blue-600 hover:to-cyan-500 hover:-translate-y-0.5 hover:shadow-lg",
 	secondary:
-		"border border-white/30 text-white hover:border-white hover:bg-white/10",
+		"border border-primary/30 bg-white text-primary hover:border-primary hover:bg-primary/5",
+	accent:
+		"bg-accent text-slate-900 shadow-md hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-lg",
+	danger:
+		"bg-danger text-white shadow-md hover:bg-red-500 hover:-translate-y-0.5 hover:shadow-lg",
 };
 
 const shapes = {

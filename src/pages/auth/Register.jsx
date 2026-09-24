@@ -35,14 +35,14 @@ function Register() {
 
 	return (
 		<main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-50 px-4 py-10 sm:px-6">
-			<div className="absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-sky-100 via-blue-50/60 to-transparent" />
-			<section className="relative z-10 w-full max-w-lg rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(15,39,71,0.12)] sm:p-9">
+			<div className="absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-primary/10 via-cyan-100 to-transparent" />
+			<section className="relative z-10 w-full max-w-lg rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(37,99,235,0.12)] sm:p-9">
 				<div className="mb-7 flex flex-col items-center text-center">
 					<Link to="/" className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-100 bg-white p-2 shadow-lg" aria-label="Voltar à página inicial">
 						<img src={Logo} alt="Suporte-Trabalhos" className="h-full w-full object-contain" />
 					</Link>
-					<p className="text-xs font-bold uppercase tracking-[0.2em] text-secondary">Novo cliente</p>
-					<h1 className="mt-2 text-3xl font-bold tracking-tight text-primary">Criar a sua conta</h1>
+					<p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Novo cliente</p>
+					<h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900">Criar a sua conta</h1>
 					<p className="mt-2 text-sm text-slate-500">Registe-se para solicitar e acompanhar serviços de suporte.</p>
 				</div>
 

@@ -34,14 +34,14 @@ function FAQ() {
 									<button
 										type="button"
 										onClick={() => setOpenQuestion(isOpen ? null : index)}
-										className="flex w-full items-center justify-between gap-6 px-6 py-5 text-left font-bold text-[#0F2747] transition hover:text-[#155E75] sm:px-7"
+																className="flex w-full items-center justify-between gap-6 px-6 py-5 text-left font-bold text-slate-900 transition hover:text-primary sm:px-7"
 										aria-expanded={isOpen}
 									>
 										<span>{item.question}</span>
 										<ChevronDown
 											size={20}
 											className={`shrink-0 transition-transform ${
-												isOpen ? "rotate-180 text-[#D4A72C]" : ""
+												isOpen ? "rotate-180 text-accent" : ""
 											}`}
 										/>
 									</button>
@@ -56,7 +56,7 @@ function FAQ() {
 					</div>
 
 					{/* CTA */}
-					<div className="mt-12 rounded-2xl bg-[#0F2747] p-8 text-center text-white">
+					<div className="mt-12 rounded-2xl bg-primary p-8 text-center text-white">
 						<h2 className="text-2xl font-bold">Ainda precisa de ajuda?</h2>
 						<p className="mt-3 text-white/75">
 							Envie os detalhes do problema e vamos orientar os próximos passos.

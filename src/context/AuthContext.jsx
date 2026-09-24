@@ -12,6 +12,8 @@ function getStoredUser() {
 	}
 }
 
+import demoUsers from "../data/users";
+
 export function AuthProvider({ children }) {
 	const [user, setUser] = useState(getStoredUser);
 	const [loading, setLoading] = useState(false);
@@ -31,9 +33,15 @@ export function AuthProvider({ children }) {
 
 		setLoading(true);
 		await Promise.resolve();
-		const normalizedEmail = email.toLowerCase();
-		const role = normalizedEmail.includes("provider") || normalizedEmail.includes("prestador") ? "provider" : "client";
-		const authenticatedUser = { email, name: email.split("@")[0] || "Utilizador", role };
+		const normalizedEmail = String(email).trim().toLowerCase();
+		const isProvider = normalizedEmail.includes("provider") || normalizedEmail.includes("prestador");
+		const baseUser = isProvider ? demoUsers.provider : demoUsers.client;
+		const authenticatedUser = {
+			...baseUser,
+			email: normalizedEmail.includes("@") ? normalizedEmail : baseUser.email,
+			name: baseUser.name,
+			role: isProvider ? "provider" : "client",
+		};
 		setUser(authenticatedUser);
 		setLoading(false);
 		return authenticatedUser;
@@ -46,7 +54,12 @@ export function AuthProvider({ children }) {
 
 		setLoading(true);
 		await Promise.resolve();
-		const registeredUser = { name, email, phone, role: "client" };
+		const registeredUser = {
+			name: String(name).trim(),
+			email: String(email).trim(),
+			phone: String(phone).trim(),
+			role: "client",
+		};
 		setUser(registeredUser);
 		setLoading(false);
 		return registeredUser;

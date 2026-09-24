@@ -15,7 +15,7 @@ function ClientLayout() {
 	const navLinkClass = ({ isActive }) =>
 		`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition ${
 			isActive
-				? "bg-primary text-white shadow-sm"
+				? "bg-gradient-to-r from-primary to-secondary text-white shadow-sm"
 				: "text-slate-600 hover:bg-slate-100 hover:text-primary"
 		}`;
 
@@ -35,6 +35,10 @@ function ClientLayout() {
 						<LayoutDashboard className="h-5 w-5" />
 						Dashboard
 					</NavLink>
+					<NavLink to="/client/request" className={navLinkClass}>
+						<Wrench className="h-5 w-5" />
+						Solicitar suporte
+					</NavLink>
 					<NavLink to="/client/requests" className={navLinkClass}>
 						<Wrench className="h-5 w-5" />
 						Meus pedidos
@@ -42,6 +46,10 @@ function ClientLayout() {
 					<NavLink to="/client/payments" className={navLinkClass}>
 						<ReceiptText className="h-5 w-5" />
 						Pagamentos
+					</NavLink>
+					<NavLink to="/client/profile" className={navLinkClass}>
+						<CircleHelp className="h-5 w-5" />
+						Perfil
 					</NavLink>
 				</nav>
 

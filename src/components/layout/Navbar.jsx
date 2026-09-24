@@ -12,12 +12,12 @@ function Navbar() {
   const navLinkClass = ({ isActive }) =>
     `relative py-2 text-sm font-medium transition-all duration-200 ${
       isActive
-        ? "text-primary after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-accent"
-        : "text-gray-700 hover:text-primary"
+        ? "text-primary after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-secondary"
+        : "text-slate-600 hover:text-primary"
     }`;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/95 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/90 backdrop-blur-md">
       <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
 
         {/* LOGO */}
@@ -72,42 +72,14 @@ function Navbar() {
 
           <Link
             to="/auth/login"
-            className="
-              rounded-lg
-              border
-              border-primary
-              px-4
-              py-2.5
-              text-sm
-              font-semibold
-              text-primary
-              transition-all
-              duration-200
-              hover:bg-primary
-              hover:text-white
-            "
+            className="rounded-lg border border-primary/20 bg-white px-4 py-2.5 text-sm font-semibold text-primary transition-all duration-200 hover:border-primary hover:bg-primary/5"
           >
             Entrar
           </Link>
 
           <NavLink
             to="/solicitar-servico"
-            className="
-              relative
-              rounded-lg
-              bg-accent
-              px-5
-              py-2.5
-              text-sm
-              font-semibold
-              text-white
-              shadow-sm
-              transition-all
-              duration-200
-              hover:-translate-y-0.5
-              hover:opacity-90
-              hover:shadow-md
-            "
+            className="relative rounded-lg bg-gradient-to-r from-primary to-secondary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
           >
             Solicitar suporte
           </NavLink>
