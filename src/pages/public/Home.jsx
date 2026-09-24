@@ -14,6 +14,7 @@ function Home() {
 
 	return (
 		<PublicLayout>
+			<main>
 			{/* HERO */}
 			<section className="relative min-h-[64vh] overflow-hidden">
 				{/* IMAGEM DE DIA */}
@@ -207,6 +208,7 @@ function Home() {
 					</div>
 				</div>
 			</section>
+			</main>
 		</PublicLayout>
 	);
 }

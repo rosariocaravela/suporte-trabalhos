@@ -1,6 +1,7 @@
 import PublicLayout from "../../layouts/PublicLayout";
 import Button from "../../components/common/Button";
 import { Link } from "react-router-dom";
+import useContactForm from "../../hooks/useContactForm";
 
 import {
 	Mail,
@@ -12,9 +13,11 @@ import {
 } from "lucide-react";
 
 const Contact = () => {
+	const { formData, isSubmitting, successMessage, errorMessage, handleChange, handleSubmit } = useContactForm();
+
 	return (
 		<PublicLayout>
-			<main className="bg-white">
+			<div className="bg-white">
 				{/* HERO */}
 				<section className="bg-white">
 					<div className="mx-auto max-w-7xl px-6 py-24 lg:px-8 lg:py-32">
@@ -130,6 +133,24 @@ const Contact = () => {
 									uma orientação mais rápida.
 								</p>
 
+								<form onSubmit={handleSubmit} className="mt-7 space-y-4">
+									<label className="block text-sm font-semibold">Nome completo
+										<input name="nome" value={formData.nome} onChange={handleChange} required className="mt-2 h-11 w-full rounded-xl border border-white/20 bg-white px-4 text-sm font-normal text-[#0F2747] outline-none focus:ring-2 focus:ring-[#D4A72C]" />
+									</label>
+									<label className="block text-sm font-semibold">Email
+										<input name="email" type="email" value={formData.email} onChange={handleChange} required className="mt-2 h-11 w-full rounded-xl border border-white/20 bg-white px-4 text-sm font-normal text-[#0F2747] outline-none focus:ring-2 focus:ring-[#D4A72C]" />
+									</label>
+									<label className="block text-sm font-semibold">Mensagem
+										<textarea name="mensagem" value={formData.mensagem} onChange={handleChange} required rows="4" className="mt-2 w-full resize-y rounded-xl border border-white/20 bg-white px-4 py-3 text-sm font-normal text-[#0F2747] outline-none focus:ring-2 focus:ring-[#D4A72C]" />
+									</label>
+									{successMessage && <p className="rounded-lg bg-emerald-50 p-3 text-sm text-emerald-800">{successMessage}</p>}
+									{errorMessage && <p className="rounded-lg bg-red-50 p-3 text-sm text-red-800">{errorMessage}</p>}
+									<button type="submit" disabled={isSubmitting} className="inline-flex items-center gap-2 rounded-xl bg-[#D4A72C] px-5 py-3 text-sm font-bold text-[#0F2747] transition hover:bg-[#e5b936] disabled:cursor-not-allowed disabled:opacity-60">
+										{isSubmitting ? "A enviar..." : "Enviar mensagem"}
+										<ArrowRight size={17} />
+									</button>
+								</form>
+
 								<div className="mt-8 flex flex-wrap gap-3">
 									<Button to="/solicitar-servico" className="px-5 py-3">
 										Solicitar suporte
@@ -177,7 +198,7 @@ const Contact = () => {
 						</div>
 					</div>
 				</section>
-			</main>
+			</div>
 		</PublicLayout>
 	);
 };

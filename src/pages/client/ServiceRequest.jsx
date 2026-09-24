@@ -15,7 +15,7 @@ function ServiceRequest() {
 
 	return (
 		<PublicLayout>
-			<main className="bg-gray-50 px-6 py-16 lg:px-8 lg:py-24">
+			<div className="bg-gray-50 px-6 py-16 lg:px-8 lg:py-24">
 				<div className="mx-auto max-w-4xl">
 					<div className="max-w-2xl">
 						<p className="text-sm font-bold uppercase tracking-[0.18em] text-[#155E75]">
@@ -60,22 +60,27 @@ function ServiceRequest() {
 							placeholder="+258 XX XXX XXXX"
 						/>
 
-						<FormField
-							as="select"
-							label="Tipo de suporte"
-							name="servico"
-							value={formData.servico}
-							onChange={handleChange}
-							required
-						>
-							<option value="">Selecione uma opção</option>
-							<option value="reparacao">Diagnóstico e reparação</option>
-							<option value="instalacao">Formatação e instalação</option>
-							<option value="manutencao">Manutenção e otimização</option>
-							<option value="backup">Backup e recuperação de dados</option>
-							<option value="redes">Redes e conectividade</option>
-							<option value="remoto">Suporte remoto</option>
-						</FormField>
+						<div>
+							<label htmlFor="servico" className="mb-2 block text-sm font-semibold text-primary">
+								Tipo de suporte
+							</label>
+							<select
+								id="servico"
+								name="servico"
+								value={formData.servico}
+								onChange={handleChange}
+								required
+								className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3.5 outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/10"
+							>
+								<option value="">Selecione uma opção</option>
+								<option value="reparacao">Diagnóstico e reparação</option>
+								<option value="instalacao">Formatação e instalação</option>
+								<option value="manutencao">Manutenção e otimização</option>
+								<option value="backup">Backup e recuperação de dados</option>
+								<option value="redes">Redes e conectividade</option>
+								<option value="remoto">Suporte remoto</option>
+							</select>
+						</div>
 
 						<FormField
 							label="Assunto"
@@ -87,17 +92,21 @@ function ServiceRequest() {
 							className="sm:col-span-2"
 						/>
 
-						<FormField
-							as="textarea"
-							label="Descreva o problema"
-							name="mensagem"
-							value={formData.mensagem}
-							onChange={handleChange}
-							placeholder="Explique o que aconteceu e o que precisa"
-							rows="6"
-							required
-							className="sm:col-span-2"
-						/>
+						<div className="sm:col-span-2">
+							<label htmlFor="mensagem" className="mb-2 block text-sm font-semibold text-primary">
+								Descreva o problema
+							</label>
+							<textarea
+								id="mensagem"
+								name="mensagem"
+								value={formData.mensagem}
+								onChange={handleChange}
+								placeholder="Explique o que aconteceu e o que precisa"
+								rows="6"
+								required
+								className="w-full resize-y rounded-xl border border-gray-300 px-4 py-3.5 outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/10"
+							/>
+						</div>
 
 						{successMessage && (
 							<p className="sm:col-span-2 rounded-xl bg-green-50 p-4 text-sm text-green-700">
@@ -119,7 +128,7 @@ function ServiceRequest() {
 						</Button>
 					</form>
 				</div>
-			</main>
+			</div>
 		</PublicLayout>
 	);
 }

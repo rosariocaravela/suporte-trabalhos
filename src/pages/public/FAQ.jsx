@@ -12,7 +12,7 @@ function FAQ() {
 	return (
 		<PublicLayout>
 			{/* FAQ */}
-			<main className="bg-[#F5F7FA] px-6 py-16 lg:px-8 lg:py-24">
+			<div className="bg-[#F5F7FA] px-6 py-16 lg:px-8 lg:py-24">
 				<Container className="max-w-4xl">
 					<SectionHeading
 						eyebrow="Ajuda rápida"
@@ -66,7 +66,7 @@ function FAQ() {
 						</Button>
 					</div>
 				</Container>
-			</main>
+			</div>
 		</PublicLayout>
 	);
 }

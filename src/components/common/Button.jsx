@@ -13,7 +13,7 @@ const shapes = {
 };
 
 function Button({ children, to, href, type = "button", variant = "primary", shape = "rounded", className = "", ...props }) {
-	const classes = `inline-flex items-center justify-center gap-2 px-6 py-3.5 font-bold transition ${shapes[shape]} ${variants[variant]} ${className}`;
+	const classes = `inline-flex items-center justify-center gap-2 px-6 py-3.5 font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 ${shapes[shape]} ${variants[variant]} ${className}`;
 
 	if (to) {
 		return (

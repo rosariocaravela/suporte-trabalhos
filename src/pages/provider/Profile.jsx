@@ -1,0 +1,9 @@
+import { Save, UserRound } from "lucide-react";
+
+function Profile() {
+	return (
+		<div><header><p className="text-sm font-bold uppercase tracking-[0.18em] text-secondary">Conta profissional</p><h1 className="mt-2 text-3xl font-bold tracking-tight text-primary sm:text-4xl">Meu perfil</h1><p className="mt-2 text-slate-500">Mantenha os seus dados profissionais atualizados.</p></header><form className="mt-8 max-w-3xl rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"><div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-50 text-secondary"><UserRound className="h-7 w-7" /></div><div className="grid gap-5 sm:grid-cols-2"><label className="text-sm font-semibold text-slate-700">Nome completo<input defaultValue="Prestador de suporte" className="mt-2 h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 font-normal outline-none focus:border-secondary focus:bg-white focus:ring-4 focus:ring-secondary/10" /></label><label className="text-sm font-semibold text-slate-700">Email<input type="email" placeholder="email@exemplo.com" className="mt-2 h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 font-normal outline-none focus:border-secondary focus:bg-white focus:ring-4 focus:ring-secondary/10" /></label><label className="text-sm font-semibold text-slate-700 sm:col-span-2">Especialidade<input placeholder="Ex.: redes e manutenção" className="mt-2 h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 font-normal outline-none focus:border-secondary focus:bg-white focus:ring-4 focus:ring-secondary/10" /></label></div><button type="submit" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white hover:bg-secondary"><Save className="h-4 w-4" />Guardar alterações</button></form></div>
+	);
+}
+
+export default Profile;

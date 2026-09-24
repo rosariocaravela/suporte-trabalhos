@@ -19,7 +19,7 @@ function Videos() {
 	return (
 		<PublicLayout>
 			{/* VÍDEOS */}
-			<main className="bg-[#F5F7FA] px-6 py-16 lg:px-8 lg:py-24">
+			<div className="bg-[#F5F7FA] px-6 py-16 lg:px-8 lg:py-24">
 				<Container>
 					<SectionHeading
 						eyebrow="Aprenda com exemplos"
@@ -91,7 +91,7 @@ function Videos() {
 						</p>
 					)}
 				</Container>
-			</main>
+			</div>
 		</PublicLayout>
 	);
 }

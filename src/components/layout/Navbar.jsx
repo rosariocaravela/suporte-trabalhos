@@ -71,7 +71,7 @@ function Navbar() {
         <div className="hidden items-center gap-3 lg:flex">
 
           <Link
-            to="/login"
+            to="/auth/login"
             className="
               rounded-lg
               border
@@ -135,6 +135,7 @@ function Navbar() {
           "
           aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
           aria-expanded={menuOpen}
+          aria-controls="public-mobile-menu"
         >
           {menuOpen ? (
             <span className="text-2xl leading-none">×</span>
@@ -147,7 +148,7 @@ function Navbar() {
 
       {/* MENU MOBILE */}
       {menuOpen && (
-        <div className="border-t border-gray-200 bg-white shadow-lg lg:hidden">
+        <div id="public-mobile-menu" className="border-t border-gray-200 bg-white shadow-lg lg:hidden">
 
           <div className="mx-auto max-w-7xl px-5 py-6 sm:px-8">
 
@@ -216,7 +217,7 @@ function Navbar() {
             <div className="mt-5 flex flex-col gap-3 border-t border-gray-200 pt-5">
 
               <Link
-                to="/login"
+                to="/auth/login"
                 onClick={closeMenu}
                 className="
                   w-full

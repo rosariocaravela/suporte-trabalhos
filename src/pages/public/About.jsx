@@ -25,6 +25,7 @@ const About = () => {
 
     return (
         <PublicLayout>
+            <main>
 
             <section
                 id="sobre"
@@ -468,6 +469,7 @@ const About = () => {
 
             </section>
 
+            </main>
         </PublicLayout>
     );
 };

@@ -8,6 +8,7 @@ import PublicLayout from "../../layouts/PublicLayout";
 function Services() {
 	return (
 		<PublicLayout>
+			<main>
 			{/* SERVIÇOS */}
 			<section id="servicos" className="bg-slate-50 px-4 py-16 sm:px-6 md:py-24 lg:px-8">
 				<Container>
@@ -64,6 +65,7 @@ function Services() {
 					</div>
 				</Container>
 			</section>
+			</main>
 		</PublicLayout>
 	);
 }

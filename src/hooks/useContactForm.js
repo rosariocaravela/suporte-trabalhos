@@ -40,7 +40,7 @@ const useContactForm = () => {
       );
 
       setFormData(initialFormData);
-    } catch (error) {
+    } catch {
       setErrorMessage(
         "Ocorreu um erro ao enviar a mensagem. Tente novamente."
       );

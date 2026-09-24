@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, BookOpen, Search, ShieldCheck } from "lucide-react";
 import PublicLayout from "../../layouts/PublicLayout";
@@ -11,6 +11,17 @@ function Contents() {
   const [activeCategory, setActiveCategory] = useState("Todos");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedContent, setSelectedContent] = useState(null);
+
+  useEffect(() => {
+    if (!selectedContent) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") setSelectedContent(null);
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [selectedContent]);
   const normalizedSearch = searchTerm.trim().toLowerCase();
   const visibleContents = contents.filter((content) => {
     const matchesCategory = activeCategory === "Todos" || content.category === activeCategory;
@@ -20,7 +31,7 @@ function Contents() {
 
   return (
     <PublicLayout>
-      <main id="conteudos" className="bg-[#F5F7FA] px-6 py-16 lg:px-8 lg:py-24">
+      <div id="conteudos" className="bg-[#F5F7FA] px-6 py-16 lg:px-8 lg:py-24">
         <Container>
           <SectionHeading
             eyebrow="Conhecimento e tecnologia"
@@ -60,7 +71,7 @@ function Contents() {
           {visibleContents.length === 0 && <p className="mt-10 rounded-2xl border border-dashed border-gray-300 bg-white p-10 text-center text-gray-600">Nenhum conteúdo encontrado.</p>}
 
           {selectedContent && (
-            <div className="fixed inset-0 z-[60] flex items-center justify-center bg-[#0F2747]/70 px-4 py-6" onClick={() => setSelectedContent(null)}>
+            <div className="fixed inset-0 z-[60] flex items-center justify-center bg-[#0F2747]/70 px-4 py-6" role="dialog" aria-modal="true" aria-labelledby="content-dialog-title" onClick={() => setSelectedContent(null)}>
               <article className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl bg-white shadow-2xl" onClick={(event) => event.stopPropagation()}>
                 <img src={selectedContent.image} alt={selectedContent.title} className="h-56 w-full object-cover sm:h-72" />
                 <div className="p-7 sm:p-10">
@@ -68,7 +79,7 @@ function Contents() {
                     <span className="rounded-md bg-[#155E75]/10 px-3 py-1 text-xs font-bold text-[#155E75]">{selectedContent.category}</span>
                     <button type="button" onClick={() => setSelectedContent(null)} className="text-sm font-semibold text-gray-500 hover:text-[#0F2747]">Fechar</button>
                   </div>
-                  <h2 className="mt-5 text-3xl font-bold leading-tight text-[#0F2747]">{selectedContent.title}</h2>
+                  <h2 id="content-dialog-title" className="mt-5 text-3xl font-bold leading-tight text-[#0F2747]">{selectedContent.title}</h2>
                   <p className="mt-5 text-lg leading-8 text-gray-600">{selectedContent.description}</p>
                   <div className="mt-7 space-y-4 text-gray-600">
                     <p>Antes de procurar uma solução, observe os sinais do problema e anote quando ele acontece. Essa informação ajuda a encontrar a causa mais rapidamente.</p>
@@ -92,7 +103,7 @@ function Contents() {
             <Link to="/solicitar-servico" className="mt-7 inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#D4A72C] px-6 py-3.5 font-bold text-[#0F2747] transition hover:bg-[#e5b936] md:mt-0">Solicitar suporte <ArrowRight size={18} /></Link>
           </section>
         </Container>
-      </main>
+      </div>
     </PublicLayout>
   );
 }
