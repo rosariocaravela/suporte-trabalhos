@@ -3,6 +3,17 @@ import { Clapperboard, ExternalLink, Pencil, Plus, Search, Trash2 } from "lucide
 import { createVideo, deleteVideo, listProviderVideos, updateVideo } from "../../services/videoService";
 
 const emptyForm = { title: "", description: "", url: "", category: "", is_published: false };
+const CATEGORY_OPTIONS = [
+  "",
+  "Suporte técnico",
+  "Tutoriais",
+  "Dicas",
+  "Marketing",
+  "Vendas",
+  "Manutenção",
+  "FAQ",
+  "Conteúdo geral",
+];
 
 function Videos() {
   const [videos, setVideos] = useState([]);
@@ -107,7 +118,9 @@ function Videos() {
       <h2 className="text-lg font-bold text-primary sm:col-span-2">{editingId ? "Editar vídeo" : "Novo vídeo"}</h2>
       <label className="text-sm font-semibold text-slate-700 sm:col-span-2">Título<input name="title" value={formData.title} onChange={handleChange} required maxLength="180" className="mt-2 h-11 w-full rounded-lg border border-slate-200 px-3 font-normal" /></label>
       <label className="text-sm font-semibold text-slate-700 sm:col-span-2">URL do vídeo<input name="url" type="url" value={formData.url} onChange={handleChange} required className="mt-2 h-11 w-full rounded-lg border border-slate-200 px-3 font-normal" /></label>
-      <label className="text-sm font-semibold text-slate-700">Categoria<input name="category" value={formData.category} onChange={handleChange} maxLength="60" className="mt-2 h-11 w-full rounded-lg border border-slate-200 px-3 font-normal" /></label>
+      <label className="text-sm font-semibold text-slate-700">Categoria<select name="category" value={formData.category} onChange={handleChange} className="mt-2 h-11 w-full rounded-lg border border-slate-200 bg-white px-3 font-normal text-slate-900"><option value="">Sem categoria</option>{Array.from(new Set([...CATEGORY_OPTIONS, formData.category || ""]))
+          .filter((value) => value)
+          .map((value) => <option key={value} value={value}>{value}</option>)}</select></label>
       <label className="text-sm font-semibold text-slate-700 sm:col-span-2">Descrição<textarea name="description" value={formData.description} onChange={handleChange} rows="3" maxLength="2000" className="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 font-normal" /></label>
       <label className="flex items-center gap-2 text-sm font-semibold text-slate-700 sm:col-span-2"><input name="is_published" type="checkbox" checked={formData.is_published} onChange={handleChange} />Publicar agora</label>
       <div className="flex gap-3 sm:col-span-2"><button type="submit" disabled={saving} className="rounded-lg bg-primary px-4 py-2.5 text-sm font-bold text-white disabled:opacity-60">{saving ? "A guardar..." : "Guardar"}</button><button type="button" onClick={() => setFormOpen(false)} className="rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-semibold">Cancelar</button></div>

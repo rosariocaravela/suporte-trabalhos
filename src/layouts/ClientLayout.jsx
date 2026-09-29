@@ -61,10 +61,6 @@ function ClientLayout() {
 						Perfil
 					</NavLink>
 				</nav>
-				<div className="mt-3 flex justify-end px-4 lg:justify-start">
-					<NotificationBell />
-				</div>
-
 				<div className="mt-7">
 					<p className="mb-2 px-4 text-[11px] font-bold uppercase tracking-[0.16em] text-slate-400">Explorar</p>
 					<nav className="flex flex-col gap-1" aria-label="Conteúdos públicos">
@@ -95,6 +91,9 @@ function ClientLayout() {
 			</aside>
 
 			<main className="min-w-0 flex-1">
+				<header className="flex justify-end px-5 pt-5 sm:px-8 lg:px-10">
+					<NotificationBell />
+				</header>
 				<div className="mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-10 lg:py-10">
 					<Outlet />
 				</div>

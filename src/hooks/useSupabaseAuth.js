@@ -17,7 +17,7 @@ function useSupabaseAuth() {
 
 			const { data, error } = await supabase
 				.from("profiles")
-				.select("id, email, name, phone, role")
+				.select("id, email, name, phone, role, avatar_url")
 				.eq("id", authUser.id)
 				.maybeSingle();
 
@@ -29,6 +29,7 @@ function useSupabaseAuth() {
 				name: authUser.user_metadata?.name ?? "",
 				phone: authUser.user_metadata?.phone ?? "",
 				role: "client",
+				avatar_url: authUser.user_metadata?.avatar_url ?? null,
 			};
 
 			if (active) setUser(profile);
@@ -80,7 +81,7 @@ function useSupabaseAuth() {
 
 			const { data: profile, error: profileError } = await supabase
 				.from("profiles")
-				.select("id, email, name, phone, role")
+				.select("id, email, name, phone, role, avatar_url")
 				.eq("id", data.user.id)
 				.maybeSingle();
 			if (profileError) throw profileError;
@@ -91,6 +92,7 @@ function useSupabaseAuth() {
 				name: data.user.user_metadata?.name ?? "",
 				phone: data.user.user_metadata?.phone ?? "",
 				role: "client",
+				avatar_url: data.user.user_metadata?.avatar_url ?? null,
 			};
 			setUser(authenticatedUser);
 			return authenticatedUser;
@@ -119,6 +121,7 @@ function useSupabaseAuth() {
 				name: data.user.user_metadata?.name ?? "",
 				phone: data.user.user_metadata?.phone ?? "",
 				role: "client",
+				avatar_url: data.user.user_metadata?.avatar_url ?? null,
 			};
 			setUser(authenticatedUser);
 			return authenticatedUser;

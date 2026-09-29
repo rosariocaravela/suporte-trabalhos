@@ -1,5 +1,8 @@
 -- Execute schema.sql before this file. Safe to run again.
 
+alter table public.profiles
+  add column if not exists avatar_url text;
+
 alter table public.profiles enable row level security;
 alter table public.services enable row level security;
 alter table public.requests enable row level security;
@@ -41,7 +44,44 @@ drop policy if exists "Participantes podem ver mensagens do pedido" on public.me
 drop policy if exists "Participante pode enviar mensagens no pedido" on public.messages;
 drop policy if exists "Destinatário pode marcar mensagens como lidas" on public.messages;
 drop policy if exists "Utilizador pode ver pagamentos relacionados" on public.payments;
+drop policy if exists "Avatar storage public read" on storage.objects;
+drop policy if exists "Avatar storage user insert" on storage.objects;
+drop policy if exists "Avatar storage user update" on storage.objects;
+drop policy if exists "Avatar storage user delete" on storage.objects;
 drop function if exists public.is_provider(uuid);
+
+insert into storage.buckets (id, name, public)
+values ('avatars', 'avatars', true)
+on conflict (id) do update set public = true;
+
+create policy "Avatar storage public read"
+on storage.objects for select to public
+using (bucket_id = 'avatars');
+
+create policy "Avatar storage user insert"
+on storage.objects for insert to authenticated
+with check (
+  bucket_id = 'avatars'
+  and auth.uid()::text = any (storage.foldername(name))
+);
+
+create policy "Avatar storage user update"
+on storage.objects for update to authenticated
+using (
+  bucket_id = 'avatars'
+  and auth.uid()::text = any (storage.foldername(name))
+)
+with check (
+  bucket_id = 'avatars'
+  and auth.uid()::text = any (storage.foldername(name))
+);
+
+create policy "Avatar storage user delete"
+on storage.objects for delete to authenticated
+using (
+  bucket_id = 'avatars'
+  and auth.uid()::text = any (storage.foldername(name))
+);
 
 revoke all on public.profiles, public.services, public.requests, public.contents,
 	public.videos, public.request_status_history, public.notifications, public.messages,
@@ -54,7 +94,7 @@ revoke all on function public.schedule_request(uuid, timestamptz) from public, a
 grant execute on function public.schedule_request(uuid, timestamptz) to authenticated;
 
 grant select on public.profiles to authenticated;
-grant update (name, phone) on public.profiles to authenticated;
+grant update (name, phone, avatar_url) on public.profiles to authenticated;
 
 grant select on public.services to anon, authenticated;
 grant insert, update, delete on public.services to authenticated;

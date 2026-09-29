@@ -5,6 +5,7 @@ create table if not exists profiles (
   email text unique not null,
   name text not null,
   phone text,
+  avatar_url text,
   role text not null default 'client' constraint profiles_role_check check (role in ('client', 'provider', 'admin')),
   created_at timestamptz default now()
 );

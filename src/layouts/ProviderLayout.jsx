@@ -38,11 +38,15 @@ function ProviderLayout() {
 					<NavLink to="/provider/payments" className={navLinkClass}><ReceiptText className="h-5 w-5" />Pagamentos</NavLink>
 					<NavLink to="/provider/profile" className={navLinkClass}><UserRound className="h-5 w-5" />Perfil</NavLink>
 				</nav>
-				<div className="mt-3 flex justify-end px-4 lg:justify-start"><NotificationBell /></div>
 				{logoutError && <p className="mt-4 px-4 text-xs text-red-700" role="alert">{logoutError}</p>}
 				<button type="button" onClick={handleLogout} className="mt-6 flex items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-slate-500 transition hover:bg-slate-100 hover:text-primary lg:mt-auto"><LogOut className="h-5 w-5" />Sair</button>
 			</aside>
-			<main className="min-w-0 flex-1"><div className="mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-10 lg:py-10"><Outlet /></div></main>
+			<main className="min-w-0 flex-1">
+				<header className="flex justify-end px-5 pt-5 sm:px-8 lg:px-10">
+					<NotificationBell />
+				</header>
+				<div className="mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-10 lg:py-10"><Outlet /></div>
+			</main>
 		</div>
 	);
 }
