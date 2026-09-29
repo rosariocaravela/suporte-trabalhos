@@ -112,7 +112,7 @@ Esta área é pensada para facilitar a descoberta do projeto e incentivar a proc
 
 ## Área de gestão
 
-O projeto também prevê uma área privada para gestão do atendimento e dos serviços, onde será possível:
+O projeto inclui áreas privadas para clientes e prestadores. A autenticação, perfis, catálogo de serviços, pedidos, histórico, mensagens e notificações estão ligados ao Supabase. A área de pagamentos mantém histórico somente de leitura; cobrança online e administração ainda não estão disponíveis.
 
 - visualizar pedidos recebidos;
 - consultar detalhes dos clientes;
@@ -145,6 +145,7 @@ A aplicação pode seguir um fluxo de atendimento com estados como:
 - JavaScript
 - Tailwind CSS
 - Lucide React
+- Supabase Auth e PostgreSQL
 
 ### Estrutura da aplicação
 
@@ -152,15 +153,61 @@ A aplicação pode seguir um fluxo de atendimento com estados como:
 - Componentes reutilizáveis
 - Layouts públicos e privados
 - Hooks para lógica de interface
+- Row Level Security (RLS) para proteger os dados no Supabase
 
-### Planeamento futuro
+### Estado da integração
 
-- Node.js
-- Express
-- PostgreSQL
-- autenticação de utilizadores
-- gestão completa de pedidos e clientes
-- painel administrativo mais completo
+- Registo, login, sessão e logout com Supabase Auth
+- Recuperação de password por email; Google/GitHub dependem de configuração dos fornecedores no Supabase
+- Perfis criados por trigger e atualização permitida de nome/telefone
+- Serviços e catálogo público carregados do Supabase, com gestão pelo prestador
+- Pedidos persistidos, listas/dashboards reais, histórico de estados, transições e agendamento
+- Conteúdos e vídeos geridos por prestadores e visíveis publicamente apenas quando publicados
+- Notificações e mensagens internas em tempo real, protegidas por RLS
+- Estrutura de pagamentos e histórico de leitura; não existe gateway, cobrança nem confirmação pelo frontend
+- Não existe painel administrativo dedicado
+
+## Configuração local
+
+Instala as dependências:
+
+```bash
+npm install
+```
+
+Cria `.env.local` a partir de `.env.example` e preenche as credenciais do projeto Supabase:
+
+```powershell
+Copy-Item .env.example .env.local
+```
+
+O ficheiro deve conter a URL do projeto e a chave pública:
+
+```env
+VITE_SUPABASE_URL=https://seu-projeto.supabase.co
+VITE_SUPABASE_ANON_KEY=sua-chave-publica
+```
+
+Não coloques uma chave `service_role` no frontend nem submetas ficheiros `.env` com credenciais.
+
+No painel do Supabase, abre **SQL Editor** e executa os ficheiros pela ordem indicada:
+
+1. `supabase/schema.sql`
+2. `supabase/policies.sql`
+
+Os scripts são repetíveis e atualizam as tabelas existentes. Depois de alterações nestes ficheiros, executa novamente `schema.sql` e depois `policies.sql`. A aplicação não consegue validar a base de dados remota até os scripts serem executados no painel.
+
+Para recuperação de password e OAuth, adiciona `http://localhost:5173/auth/password-reset` e `http://localhost:5173/auth/login` às URLs permitidas em **Authentication → URL Configuration**. Para Google/GitHub, ativa cada fornecedor e configura as respetivas credenciais no Supabase.
+
+Pagamentos online exigem país/moeda confirmados, conta de comerciante num gateway e uma Edge Function/webhook configurados no servidor. Até isso existir, a aplicação não inicia nem simula cobranças.
+
+Inicia a aplicação:
+
+```bash
+npm run dev
+```
+
+Para verificar o projeto, também podes executar `npm run lint` e `npm run build`.
 
 ---
 
@@ -185,14 +232,17 @@ suporte-trabalhos/
 │   ├── data/
 │   ├── hooks/
 │   ├── layouts/
+│   ├── lib/
 │   ├── pages/
 │   ├── routes/
 │   ├── services/
 │   ├── utils/
-│   ├── App.jsx
 │   ├── main.jsx
 │   └── index.css
 │
+├── supabase/
+│   ├── schema.sql
+│   └── policies.sql
 ├── package.json
 ├── vite.config.js
 ├── README.md

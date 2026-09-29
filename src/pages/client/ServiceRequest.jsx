@@ -2,16 +2,27 @@ import PublicLayout from "../../layouts/PublicLayout";
 import useContactForm from "../../hooks/useContactForm";
 import Button from "../../components/common/Button";
 import FormField from "../../components/forms/FormField";
+import { Link, Navigate, useSearchParams } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import usePublicServices from "../../hooks/usePublicServices";
 
 function ServiceRequest() {
+	const [searchParams] = useSearchParams();
+	const { user, loading: authLoading, isAuthenticated } = useAuth();
+	const { services, loading: servicesLoading, error: servicesError, retry } = usePublicServices();
 	const {
 		formData,
 		isSubmitting,
 		successMessage,
 		errorMessage,
+		createdRequestId,
 		handleChange,
 		handleSubmit,
-	} = useContactForm();
+	} = useContactForm(searchParams.get("service") ?? "");
+
+	if (authLoading) return <div className="flex min-h-screen items-center justify-center text-sm text-slate-500" role="status">A verificar a sessão...</div>;
+	if (!isAuthenticated) return <Navigate to="/auth/login" replace state={{ from: { pathname: "/solicitar-servico" } }} />;
+	if (user?.role !== "client") return <Navigate to="/provider" replace />;
 
 	return (
 		<PublicLayout>
@@ -49,31 +60,9 @@ function ServiceRequest() {
 							onSubmit={handleSubmit}
 							className="grid gap-6 p-6 sm:grid-cols-2 sm:p-8"
 						>
-							<FormField
-								label="Nome completo"
-								name="nome"
-								value={formData.nome}
-								onChange={handleChange}
-								placeholder="Digite o seu nome"
-								required
-							/>
-							<FormField
-								label="Email"
-								name="email"
-								type="email"
-								value={formData.email}
-								onChange={handleChange}
-								placeholder="exemplo@email.com"
-								required
-							/>
-							<FormField
-								label="Telefone / WhatsApp"
-								name="telefone"
-								type="tel"
-								value={formData.telefone}
-								onChange={handleChange}
-								placeholder="+258 XX XXX XXXX"
-							/>
+							<label className="text-sm font-semibold text-slate-700">Nome completo<input value={user?.name ?? ""} readOnly className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-100 px-4 py-3.5 font-normal text-slate-600" /></label>
+							<label className="text-sm font-semibold text-slate-700">Email<input value={user?.email ?? ""} readOnly type="email" className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-100 px-4 py-3.5 font-normal text-slate-600" /></label>
+							<label className="text-sm font-semibold text-slate-700">Telefone / WhatsApp<input name="telefone" type="tel" value={formData.telefone} onChange={handleChange} placeholder="+258 XX XXX XXXX" className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-3.5 font-normal text-slate-900" /></label>
 
 							<div>
 								<label htmlFor="servico" className="mb-2 block text-sm font-semibold text-slate-700">
@@ -85,17 +74,14 @@ function ServiceRequest() {
 									value={formData.servico}
 									onChange={handleChange}
 									required
+									disabled={servicesLoading || services.length === 0}
 									className="w-full rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-3.5 text-slate-900 shadow-sm outline-none transition focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/10"
 								>
-									<option value="">Selecione uma opção</option>
-									<option value="reparacao">Diagnóstico e reparação</option>
-									<option value="instalacao">Formatação e instalação</option>
-									<option value="manutencao">Manutenção e otimização</option>
-									<option value="backup">Backup e recuperação de dados</option>
-									<option value="redes">Redes e conectividade</option>
-									<option value="remoto">Suporte remoto</option>
+									<option value="">{servicesLoading ? "A carregar serviços..." : "Selecione um serviço"}</option>
+									{services.map((service) => <option key={service.id} value={service.id}>{service.name}</option>)}
 								</select>
 							</div>
+							<label className="text-sm font-semibold text-slate-700">Prioridade<select name="prioridade" value={formData.prioridade} onChange={handleChange} className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-3.5 font-normal text-slate-900"><option value="LOW">Baixa</option><option value="MEDIUM">Normal</option><option value="HIGH">Alta</option><option value="URGENT">Urgente</option></select></label>
 
 							<FormField
 								label="Assunto"
@@ -133,10 +119,13 @@ function ServiceRequest() {
 									{errorMessage}
 								</p>
 							)}
+							{servicesError && <div className="sm:col-span-2 rounded-xl bg-red-50 p-4 text-sm text-red-700" role="alert"><p>{servicesError}</p><button type="button" onClick={retry} className="mt-2 font-bold underline">Tentar novamente</button></div>}
+							{!servicesLoading && !servicesError && services.length === 0 && <p className="sm:col-span-2 rounded-xl bg-amber-50 p-4 text-sm text-amber-800">Ainda não há serviços disponíveis. Tente novamente mais tarde.</p>}
+							{createdRequestId && <div className="sm:col-span-2"><Link to={`/client/requests/${createdRequestId}`} className="font-bold text-secondary underline">Ver pedido criado</Link></div>}
 
 							<Button
 								type="submit"
-								disabled={isSubmitting}
+								disabled={isSubmitting || servicesLoading || services.length === 0}
 								className="sm:col-span-2 mt-2 w-full rounded-xl bg-gradient-to-r from-primary to-secondary px-6 py-3.5 text-base font-bold shadow-lg shadow-primary/20 transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
 							>
 								{isSubmitting ? "A enviar..." : "Enviar pedido de suporte"}

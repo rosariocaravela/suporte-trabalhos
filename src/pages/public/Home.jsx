@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ClipboardCheck, Headphones, Wrench } from "lucide-react";
 import PublicLayout from "../../layouts/PublicLayout";
 import useImagePosition from "../../hooks/useImagePosition";
-import services from "../../data/services";
+import usePublicServices from "../../hooks/usePublicServices";
 import ServiceCard from "../../components/services/ServiceCard";
+import toServiceCard from "../../utils/servicePresentation";
 
 import supportDay from "../../assets/images/support-day.png";
 import supportNight from "../../assets/images/support-night.png";
@@ -11,6 +12,7 @@ import profissionalImage from "../../assets/images/profissional.png";
 
 function Home() {
 	const { imagePosition } = useImagePosition(profissionalImage);
+	const { services, loading, error, retry } = usePublicServices();
 
 	return (
 		<PublicLayout>
@@ -166,11 +168,15 @@ function Home() {
 						</Link>
 					</div>
 
-					<div className="mt-10 grid gap-6 lg:grid-cols-3">
-						{services.slice(0, 3).map((service) => (
-							<ServiceCard key={service.id} service={service} />
-						))}
-					</div>
+					{loading ? <p className="mt-10 text-slate-500" role="status">A carregar serviços...</p> : error ? (
+						<div className="mt-10 text-sm text-red-700" role="alert"><p>{error}</p><button type="button" onClick={retry} className="mt-2 font-bold underline">Tentar novamente</button></div>
+					) : services.length === 0 ? (
+						<p className="mt-10 rounded-xl border border-dashed border-slate-300 bg-white p-8 text-slate-600">Ainda não há serviços publicados.</p>
+					) : (
+						<div className="mt-10 grid gap-6 lg:grid-cols-3">
+							{services.slice(0, 3).map((service) => <ServiceCard key={service.id} service={toServiceCard(service)} />)}
+						</div>
+					)}
 				</div>
 			</section>
 
@@ -182,6 +188,7 @@ function Home() {
 									Como trabalhamos
 								</p>
 								<h2 className="mt-3 text-3xl font-bold text-slate-900 md:text-4xl">
+									Do pedido à solução, com acompanhamento claro
 						</h2>
 					</div>
 

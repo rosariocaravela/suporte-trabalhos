@@ -29,12 +29,18 @@ function ServiceCard({ service }) {
 				<p className="mb-6 flex-1 text-sm leading-relaxed text-slate-600 sm:text-base">
 					{service.description}
 				</p>
+				{service.price != null && (
+					<p className="mb-4 text-sm font-bold text-primary">
+						{Number(service.price).toLocaleString("pt-MZ")} MT
+						{service.duration_minutes ? ` · ${service.duration_minutes} min` : ""}
+					</p>
+				)}
 
 				<Link
-					to="/solicitar-servico"
+					to={`/solicitar-servico?service=${encodeURIComponent(service.id)}`}
 					className="inline-flex items-center text-sm font-semibold text-primary transition-colors duration-300 group-hover:text-secondary"
 				>
-					<span>Saiba mais</span>
+					<span>Solicitar este serviço</span>
 					<ArrowRight
 						size={16}
 						className="ml-1.5 transition-transform duration-200 group-hover:translate-x-1"

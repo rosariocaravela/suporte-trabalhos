@@ -1,11 +1,14 @@
 import { ArrowRight } from "lucide-react";
 import Button from "../../components/common/Button";
 import Container from "../../components/common/Container";
-import services from "../../data/services";
 import ServiceCard from "../../components/services/ServiceCard";
 import PublicLayout from "../../layouts/PublicLayout";
+import usePublicServices from "../../hooks/usePublicServices";
+import toServiceCard from "../../utils/servicePresentation";
 
 function Services() {
+	const { services, loading, error, retry } = usePublicServices();
+
 	return (
 		<PublicLayout>
 			<main>
@@ -34,11 +37,17 @@ function Services() {
 					</div>
 
 					{/* CARDS */}
-					<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 sm:gap-8">
-						{services.map((service) => (
-							<ServiceCard key={service.title} service={service} />
-						))}
-					</div>
+					{loading ? <p className="py-10 text-center text-slate-500" role="status">A carregar serviços...</p> : error ? (
+						<div className="rounded-xl border border-red-200 bg-red-50 p-5 text-center text-sm text-red-700" role="alert">
+							<p>{error}</p><button type="button" onClick={retry} className="mt-3 font-bold underline">Tentar novamente</button>
+						</div>
+					) : services.length === 0 ? (
+						<p className="rounded-xl border border-dashed border-slate-300 bg-white p-10 text-center text-slate-600">Ainda não há serviços publicados.</p>
+					) : (
+						<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 sm:gap-8">
+							{services.map((service) => <ServiceCard key={service.id} service={toServiceCard(service)} />)}
+						</div>
+					)}
 
 					{/* CTA */}
 					<div className="mt-14 md:mt-20">

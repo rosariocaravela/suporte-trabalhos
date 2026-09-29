@@ -1,15 +1,24 @@
+import { useState } from "react";
 import { NavLink, Outlet, Link, useNavigate } from "react-router-dom";
-import { BookOpen, CircleHelp, LayoutDashboard, LogOut, PlayCircle, ReceiptText, Wrench } from "lucide-react";
+import { BookOpen, ClipboardList, CircleHelp, Headset, LayoutDashboard, LogOut, PlayCircle, ReceiptText, UserRound, Wrench } from "lucide-react";
 import Logo from "../assets/logos/suporte-trabalhos.png";
 import useAuth from "../hooks/useAuth";
+import NotificationBell from "../components/common/NotificationBell";
 
 function ClientLayout() {
 	const navigate = useNavigate();
 	const { user, logout } = useAuth();
+	const [logoutError, setLogoutError] = useState("");
 
-	const handleLogout = () => {
-		logout();
-		navigate("/");
+	const handleLogout = async () => {
+		setLogoutError("");
+		try {
+			await logout();
+			navigate("/");
+		} catch (error) {
+			console.error("Não foi possível terminar sessão:", error);
+			setLogoutError("Não foi possível terminar sessão. Tente novamente.");
+		}
 	};
 
 	const navLinkClass = ({ isActive }) =>
@@ -36,11 +45,11 @@ function ClientLayout() {
 						Dashboard
 					</NavLink>
 					<NavLink to="/client/request" className={navLinkClass}>
-						<Wrench className="h-5 w-5" />
+						<Headset className="h-5 w-5" />
 						Solicitar suporte
 					</NavLink>
 					<NavLink to="/client/requests" className={navLinkClass}>
-						<Wrench className="h-5 w-5" />
+						<ClipboardList className="h-5 w-5" />
 						Meus pedidos
 					</NavLink>
 					<NavLink to="/client/payments" className={navLinkClass}>
@@ -48,10 +57,13 @@ function ClientLayout() {
 						Pagamentos
 					</NavLink>
 					<NavLink to="/client/profile" className={navLinkClass}>
-						<CircleHelp className="h-5 w-5" />
+						<UserRound className="h-5 w-5" />
 						Perfil
 					</NavLink>
 				</nav>
+				<div className="mt-3 flex justify-end px-4 lg:justify-start">
+					<NotificationBell />
+				</div>
 
 				<div className="mt-7">
 					<p className="mb-2 px-4 text-[11px] font-bold uppercase tracking-[0.16em] text-slate-400">Explorar</p>
@@ -75,6 +87,7 @@ function ClientLayout() {
 					</nav>
 				</div>
 
+				{logoutError && <p className="mt-4 px-4 text-xs text-red-700" role="alert">{logoutError}</p>}
 				<button type="button" onClick={handleLogout} className="mt-6 flex items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-slate-500 transition hover:bg-slate-100 hover:text-primary lg:mt-auto">
 					<LogOut className="h-5 w-5" />
 					Sair

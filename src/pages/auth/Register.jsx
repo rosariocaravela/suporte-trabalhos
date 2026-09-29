@@ -9,11 +9,13 @@ function Register() {
 	const { register, loading } = useAuth();
 	const [formData, setFormData] = useState({ name: "", email: "", phone: "", password: "", confirmPassword: "" });
 	const [error, setError] = useState("");
+	const [success, setSuccess] = useState("");
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 		setFormData((current) => ({ ...current, [name]: value }));
 		setError("");
+		setSuccess("");
 	};
 
 	const handleSubmit = async (event) => {
@@ -27,9 +29,16 @@ function Register() {
 			return;
 		}
 
-		const user = await register(formData);
-		if (user) {
-			navigate("/client", { replace: true });
+		try {
+			const result = await register(formData);
+			if (result?.requiresEmailConfirmation) {
+				setSuccess("Conta criada. Confirme o email para poder iniciar sessão.");
+				return;
+			}
+			if (result) navigate("/client", { replace: true });
+		} catch (authError) {
+			console.error("Não foi possível criar a conta:", authError);
+			setError("Não foi possível criar a conta. Verifique os dados ou tente novamente mais tarde.");
 		}
 	};
 
@@ -53,6 +62,7 @@ function Register() {
 					<label className="text-sm font-semibold text-slate-700">Palavra-passe<div className="relative"><LockKeyhole className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" /><input name="password" type="password" value={formData.password} onChange={handleChange} required autoComplete="new-password" placeholder="Mínimo 6 caracteres" className="mt-2 h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 text-sm font-normal outline-none focus:border-secondary focus:bg-white focus:ring-4 focus:ring-secondary/10" /></div></label>
 					<label className="text-sm font-semibold text-slate-700">Confirmar palavra-passe<div className="relative"><LockKeyhole className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" /><input name="confirmPassword" type="password" value={formData.confirmPassword} onChange={handleChange} required autoComplete="new-password" placeholder="Repita a palavra-passe" className="mt-2 h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 text-sm font-normal outline-none focus:border-secondary focus:bg-white focus:ring-4 focus:ring-secondary/10" /></div></label>
 					{error && <p className="text-sm font-medium text-red-600 sm:col-span-2">{error}</p>}
+					{success && <p className="text-sm font-medium text-green-700 sm:col-span-2" role="status">{success}</p>}
 					<button type="submit" disabled={loading} className="flex h-12 items-center justify-center gap-2 rounded-xl bg-primary text-sm font-bold text-white transition hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-60 sm:col-span-2">{loading ? "A criar conta..." : "Criar conta"}<ArrowRight className="h-4 w-4" /></button>
 				</form>
 				<p className="mt-7 text-center text-sm text-slate-500">Já tem uma conta? <Link to="/auth/login" className="font-bold text-secondary hover:text-primary">Entrar</Link></p>

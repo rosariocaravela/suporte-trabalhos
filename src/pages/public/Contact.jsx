@@ -42,7 +42,7 @@ const Contact = () => {
               <div>
                 <h2 className="text-3xl font-bold text-slate-900">Fale connosco</h2>
                 <p className="mt-4 max-w-lg text-gray-600">
-                  Se preferir, pode falar diretamente connosco por um destes canais ou usar o formulário ao lado para enviar o seu pedido de suporte.
+                  Fale connosco por email, WhatsApp ou telefone. Para acompanhar um pedido, use a área de cliente.
                 </p>
 
                 <div className="mt-8 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
@@ -106,7 +106,7 @@ const Contact = () => {
 
                 <h2 className="mt-4 text-3xl font-bold">Precisa de ajuda?</h2>
                 <p className="mt-4 leading-7 text-white/75">
-                  O pedido de suporte tem a sua própria página para ficar mais claro e evitar repetições no contacto.
+                  Crie uma conta de cliente para enviar e acompanhar pedidos de suporte.
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-3">

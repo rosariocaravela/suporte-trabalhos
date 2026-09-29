@@ -1,12 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Play, Search, Video } from "lucide-react";
 import PublicLayout from "../../layouts/PublicLayout";
 import Container from "../../components/common/Container";
 import SectionHeading from "../../components/common/SectionHeading";
-import videos from "../../data/videos";
+import { listPublishedVideos } from "../../services/videoService";
 
 function Videos() {
 	const [searchTerm, setSearchTerm] = useState("");
+	const [videos, setVideos] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState("");
+
+	useEffect(() => {
+		let active = true;
+		listPublishedVideos()
+			.then((result) => { if (active) setVideos(result); })
+			.catch((loadError) => {
+				console.error("Não foi possível carregar os vídeos:", loadError);
+				if (active) setError("Não foi possível carregar os vídeos publicados.");
+			})
+			.finally(() => { if (active) setLoading(false); });
+		return () => { active = false; };
+	}, []);
+
+	const retry = async () => {
+		setLoading(true);
+		setError("");
+		try {
+			setVideos(await listPublishedVideos());
+		} catch (loadError) {
+			console.error("Não foi possível carregar os vídeos:", loadError);
+			setError("Não foi possível carregar os vídeos publicados.");
+		} finally {
+			setLoading(false);
+		}
+	};
+
 	const normalizedSearch = searchTerm.trim().toLowerCase();
 	const visibleVideos = videos.filter(
 		(video) =>
@@ -45,20 +74,18 @@ function Videos() {
 					</div>
 
 					{/* GRID */}
+					{loading ? <p className="mt-12 text-center text-slate-500" role="status">A carregar vídeos...</p> : error ? (
+						<div className="mt-12 rounded-xl bg-red-50 p-5 text-center text-sm text-red-700" role="alert"><p>{error}</p><button type="button" onClick={retry} className="mt-3 font-bold underline">Tentar novamente</button></div>
+					) : visibleVideos.length === 0 ? <p className="mt-12 rounded-2xl border border-dashed border-gray-300 bg-white p-10 text-center text-gray-600">{videos.length ? "Nenhum vídeo encontrado." : "Ainda não há vídeos publicados."}</p> : (
 					<div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
 						{visibleVideos.map((video) => (
 							<article
 								id={video.id}
-								key={video.title}
+								key={video.id}
 								className="group flex scroll-mt-28 flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
 							>
 								<div className="relative h-48 overflow-hidden">
-									<img
-										src={video.image}
-										alt={video.title}
-										className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-									/>
-									<div className="absolute inset-0 bg-slate-900/20" />
+									<div className="h-full w-full bg-gradient-to-br from-sky-100 via-white to-cyan-50" />
 									<div className="absolute inset-0 flex items-center justify-center">
 										<span className="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-slate-900 shadow-lg transition group-hover:scale-110">
 											<Play size={24} fill="currentColor" />
@@ -74,7 +101,7 @@ function Videos() {
 									</h2>
 									<p className="mt-3 flex-1 leading-7 text-gray-600">{video.description}</p>
 									<a
-										href="https://www.youtube.com/"
+										href={video.url}
 										target="_blank"
 										rel="noreferrer"
 										className="mt-5 inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-bold text-white transition hover:bg-secondary"
@@ -85,10 +112,6 @@ function Videos() {
 							</article>
 						))}
 					</div>
-					{visibleVideos.length === 0 && (
-						<p className="mt-10 rounded-2xl border border-dashed border-gray-300 bg-white p-10 text-center text-gray-600">
-							Nenhum vídeo encontrado.
-						</p>
 					)}
 				</Container>
 			</div>

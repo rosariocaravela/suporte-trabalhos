@@ -1,6 +1,44 @@
-import { Camera, Lock, Save, UserRound } from "lucide-react";
+import { useState } from "react";
+import { Lock, Save, UserRound } from "lucide-react";
+import useAuth from "../../hooks/useAuth";
+import { requestPasswordReset } from "../../services/authService";
 
 function Profile() {
+  const { user, updateProfile } = useAuth();
+  const [name, setName] = useState(user?.name ?? "");
+  const [phone, setPhone] = useState(user?.phone ?? "");
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+  const [feedback, setFeedback] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setSaving(true);
+    setError("");
+    setFeedback("");
+    try {
+      await updateProfile({ name, phone });
+      setFeedback("Perfil atualizado.");
+    } catch (saveError) {
+      console.error("Não foi possível atualizar o perfil:", saveError);
+      setError("Não foi possível guardar as alterações. Verifique a ligação e tente novamente.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handlePasswordReset = async () => {
+    setError("");
+    setFeedback("");
+    try {
+      await requestPasswordReset(user?.email);
+      setFeedback("Enviámos um link para alterar a palavra-passe para o email da conta.");
+    } catch (resetError) {
+      console.error("Não foi possível solicitar a alteração da palavra-passe:", resetError);
+      setError("Não foi possível enviar o link. Tente novamente mais tarde.");
+    }
+  };
+
   return (
     <div>
       <header>
@@ -15,25 +53,22 @@ function Profile() {
             <div className="flex h-20 w-20 items-center justify-center rounded-full bg-sky-100 text-primary">
               <UserRound className="h-10 w-10" />
             </div>
-            <button
-              type="button"
-              className="absolute -bottom-1 -right-1 flex h-9 w-9 items-center justify-center rounded-full border-2 border-white bg-primary text-white shadow-sm hover:bg-secondary"
-            >
-              <Camera className="h-4 w-4" />
-            </button>
           </div>
 
           <div>
-            <h2 className="text-2xl font-bold text-primary">Nélio M. Prestador</h2>
-            <p className="mt-1 text-sm text-slate-500">Prestador de suporte • provider@suporte-trabalhos.com</p>
+            <h2 className="text-2xl font-bold text-primary">{user?.name}</h2>
+            <p className="mt-1 text-sm text-slate-500">Prestador de suporte · {user?.email}</p>
           </div>
         </div>
 
-        <form className="mt-8 grid gap-5 sm:grid-cols-2">
+        <form onSubmit={handleSubmit} className="mt-8 grid gap-5 sm:grid-cols-2">
           <label className="text-sm font-semibold text-slate-700">
             Nome completo
             <input
-              defaultValue="Nélio M. Prestador"
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              required
+              maxLength="120"
               className="mt-2 h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm font-normal outline-none focus:border-secondary focus:bg-white focus:ring-4 focus:ring-secondary/10"
             />
           </label>
@@ -41,52 +76,42 @@ function Profile() {
           <label className="text-sm font-semibold text-slate-700">
             Email
             <input
-              defaultValue="provider@suporte-trabalhos.com"
+              value={user?.email ?? ""}
               type="email"
-              className="mt-2 h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm font-normal outline-none focus:border-secondary focus:bg-white focus:ring-4 focus:ring-secondary/10"
+              readOnly
+              className="mt-2 h-12 w-full rounded-xl border border-slate-200 bg-slate-100 px-4 text-sm font-normal text-slate-500"
             />
           </label>
 
           <label className="text-sm font-semibold text-slate-700">
             Telefone
             <input
-              defaultValue="+258 82 765 4321"
+              value={phone}
+              onChange={(event) => setPhone(event.target.value)}
               type="tel"
+              maxLength="30"
               className="mt-2 h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm font-normal outline-none focus:border-secondary focus:bg-white focus:ring-4 focus:ring-secondary/10"
             />
           </label>
 
-          <label className="text-sm font-semibold text-slate-700">
-            Especialidade
-            <input
-              defaultValue="Redes, manutenção e suporte remoto"
-              className="mt-2 h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm font-normal outline-none focus:border-secondary focus:bg-white focus:ring-4 focus:ring-secondary/10"
-            />
-          </label>
-
-          <label className="text-sm font-semibold text-slate-700 sm:col-span-2">
-            Serviços prestados
-            <textarea
-              defaultValue="Diagnóstico e reparação, manutenção e otimização, redes e conectividade, backup e recuperação de dados"
-              rows="3"
-              className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-normal outline-none focus:border-secondary focus:bg-white focus:ring-4 focus:ring-secondary/10"
-            />
-          </label>
-
+          {error && <p className="sm:col-span-2 rounded-xl bg-red-50 p-4 text-sm text-red-700" role="alert">{error}</p>}
+          {feedback && <p className="sm:col-span-2 rounded-xl bg-emerald-50 p-4 text-sm text-emerald-700" role="status">{feedback}</p>}
           <div className="sm:col-span-2 flex flex-col gap-3 sm:flex-row">
             <button
-              type="button"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white hover:bg-secondary"
+              type="submit"
+              disabled={saving}
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white hover:bg-secondary disabled:opacity-60"
             >
               <Save className="h-4 w-4" />
-              Guardar alterações
+              {saving ? "A guardar..." : "Guardar alterações"}
             </button>
             <button
               type="button"
+              onClick={handlePasswordReset}
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50"
             >
               <Lock className="h-4 w-4" />
-              Alterar palavra-passe
+              Enviar link para alterar palavra-passe
             </button>
           </div>
         </form>

@@ -3,6 +3,7 @@ import { Eye, EyeOff, LockKeyhole, Mail, ArrowRight } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../assets/logos/suporte-trabalhos.png";
 import useAuth from "../../hooks/useAuth";
+import { requestPasswordReset, signInWithProvider } from "../../services/authService";
 
 function Login() {
 	const navigate = useNavigate();
@@ -11,11 +12,14 @@ function Login() {
 	const [showPassword, setShowPassword] = useState(false);
 	const [formData, setFormData] = useState({ email: "", password: "" });
 	const [error, setError] = useState("");
+	const [feedback, setFeedback] = useState("");
+	const [providerLoading, setProviderLoading] = useState(false);
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 		setFormData((current) => ({ ...current, [name]: value }));
 		setError("");
+		setFeedback("");
 	};
 
 	const handleSubmit = async (event) => {
@@ -26,10 +30,41 @@ function Login() {
 			return;
 		}
 
-		const authenticatedUser = await login(formData.email, formData.password);
-		if (authenticatedUser) {
+		try {
+			const authenticatedUser = await login(formData.email, formData.password);
 			const defaultPath = authenticatedUser.role === "provider" ? "/provider" : "/client";
 			navigate(location.state?.from || defaultPath, { replace: true });
+		} catch (authError) {
+			console.error("Não foi possível iniciar sessão:", authError);
+			setError("Não foi possível iniciar sessão. Verifique o email e a palavra-passe.");
+		}
+	};
+
+	const handlePasswordReset = async () => {
+		setError("");
+		setFeedback("");
+		if (!String(formData.email).includes("@")) {
+			setError("Introduza o email da conta para receber o link de recuperação.");
+			return;
+		}
+		try {
+			await requestPasswordReset(formData.email);
+			setFeedback("Se existir uma conta para este email, receberá um link de recuperação.");
+		} catch (resetError) {
+			console.error("Não foi possível solicitar a recuperação:", resetError);
+			setError("Não foi possível enviar o link de recuperação. Tente novamente mais tarde.");
+		}
+	};
+
+	const handleOAuth = async (provider) => {
+		setError("");
+		setProviderLoading(true);
+		try {
+			await signInWithProvider(provider);
+		} catch (oauthError) {
+			console.error(`Não foi possível iniciar sessão com ${provider}:`, oauthError);
+			setError(`Não foi possível iniciar sessão com ${provider}. Verifique a configuração desse fornecedor no Supabase.`);
+			setProviderLoading(false);
 		}
 	};
 
@@ -79,7 +114,7 @@ function Login() {
 							<label htmlFor="password" className="text-sm font-semibold text-slate-700">
 								Palavra-passe
 							</label>
-							<button type="button" className="text-xs font-semibold text-secondary transition hover:text-primary">
+							<button type="button" onClick={handlePasswordReset} disabled={loading} className="text-xs font-semibold text-secondary transition hover:text-primary disabled:opacity-60">
 								Esqueceu-se?
 							</button>
 						</div>
@@ -107,6 +142,7 @@ function Login() {
 					</div>
 
 					{error && <p className="text-sm font-medium text-red-600">{error}</p>}
+					{feedback && <p className="text-sm font-medium text-emerald-700" role="status">{feedback}</p>}
 
 					<button
 						type="submit"
@@ -125,7 +161,7 @@ function Login() {
 				</div>
 
 				<div className="grid grid-cols-2 gap-3">
-					<button type="button" className="flex h-11 items-center justify-center gap-2 rounded-xl border border-slate-200 text-sm font-semibold text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
+					<button type="button" onClick={() => handleOAuth("google")} disabled={providerLoading} className="flex h-11 items-center justify-center gap-2 rounded-xl border border-slate-200 text-sm font-semibold text-slate-600 transition hover:border-slate-300 hover:bg-slate-50 disabled:opacity-60">
 						<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
 							<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
 							<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
@@ -134,7 +170,7 @@ function Login() {
 						</svg>
 						<span>Google</span>
 					</button>
-					<button type="button" className="flex h-11 items-center justify-center gap-2 rounded-xl border border-slate-200 text-sm font-semibold text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
+					<button type="button" onClick={() => handleOAuth("github")} disabled={providerLoading} className="flex h-11 items-center justify-center gap-2 rounded-xl border border-slate-200 text-sm font-semibold text-slate-600 transition hover:border-slate-300 hover:bg-slate-50 disabled:opacity-60">
 						<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
 							<path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.28-.01-1.04-.01-2.04-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1.01-.32 3.3 1.23.96-.27 1.98-.4 3-.4s2.04.13 3 .4c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.63-5.48 5.92.42.36.81 1.1.81 2.22 0 1.61-.01 2.9-.01 3.29 0 .32.21.69.83.57C20.57 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z" fill="#24292F" />
 						</svg>

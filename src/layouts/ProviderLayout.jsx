@@ -1,16 +1,25 @@
+import { useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { BookOpenText, BriefcaseBusiness, Clapperboard, LayoutDashboard, LogOut, ReceiptText, UserRound, Wrench } from "lucide-react";
 import Logo from "../assets/logos/suporte-trabalhos.png";
 import useAuth from "../hooks/useAuth";
+import NotificationBell from "../components/common/NotificationBell";
 
 function ProviderLayout() {
 	const navigate = useNavigate();
 	const { user, logout } = useAuth();
+	const [logoutError, setLogoutError] = useState("");
 	const navLinkClass = ({ isActive }) => `flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition ${isActive ? "bg-gradient-to-r from-primary to-secondary text-white shadow-sm" : "text-slate-600 hover:bg-slate-100 hover:text-primary"}`;
 
-	const handleLogout = () => {
-		logout();
-		navigate("/");
+	const handleLogout = async () => {
+		setLogoutError("");
+		try {
+			await logout();
+			navigate("/");
+		} catch (error) {
+			console.error("Não foi possível terminar sessão:", error);
+			setLogoutError("Não foi possível terminar sessão. Tente novamente.");
+		}
 	};
 
 	return (
@@ -29,6 +38,8 @@ function ProviderLayout() {
 					<NavLink to="/provider/payments" className={navLinkClass}><ReceiptText className="h-5 w-5" />Pagamentos</NavLink>
 					<NavLink to="/provider/profile" className={navLinkClass}><UserRound className="h-5 w-5" />Perfil</NavLink>
 				</nav>
+				<div className="mt-3 flex justify-end px-4 lg:justify-start"><NotificationBell /></div>
+				{logoutError && <p className="mt-4 px-4 text-xs text-red-700" role="alert">{logoutError}</p>}
 				<button type="button" onClick={handleLogout} className="mt-6 flex items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-slate-500 transition hover:bg-slate-100 hover:text-primary lg:mt-auto"><LogOut className="h-5 w-5" />Sair</button>
 			</aside>
 			<main className="min-w-0 flex-1"><div className="mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-10 lg:py-10"><Outlet /></div></main>

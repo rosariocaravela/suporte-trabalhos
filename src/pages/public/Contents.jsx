@@ -5,12 +5,40 @@ import PublicLayout from "../../layouts/PublicLayout";
 import Container from "../../components/common/Container";
 import SectionHeading from "../../components/common/SectionHeading";
 import ContentCard from "../../components/contents/ContentCard";
-import contents, { contentCategories as categories } from "../../data/contents";
+import { listPublishedContents } from "../../services/contentService";
 
 function Contents() {
   const [activeCategory, setActiveCategory] = useState("Todos");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedContent, setSelectedContent] = useState(null);
+  const [contents, setContents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    let active = true;
+    listPublishedContents()
+      .then((result) => { if (active) setContents(result); })
+      .catch((loadError) => {
+        console.error("Não foi possível carregar os conteúdos:", loadError);
+        if (active) setError("Não foi possível carregar os conteúdos publicados.");
+      })
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, []);
+
+  const retry = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      setContents(await listPublishedContents());
+    } catch (loadError) {
+      console.error("Não foi possível carregar os conteúdos:", loadError);
+      setError("Não foi possível carregar os conteúdos publicados.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (!selectedContent) return undefined;
@@ -23,6 +51,7 @@ function Contents() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [selectedContent]);
   const normalizedSearch = searchTerm.trim().toLowerCase();
+  const categories = ["Todos", ...new Set(contents.map((content) => content.category).filter(Boolean))];
   const visibleContents = contents.filter((content) => {
     const matchesCategory = activeCategory === "Todos" || content.category === activeCategory;
     const matchesSearch = !normalizedSearch || `${content.title} ${content.description} ${content.category}`.toLowerCase().includes(normalizedSearch);
@@ -65,30 +94,26 @@ function Contents() {
             />
           </div>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {visibleContents.map((content) => <ContentCard key={content.title} content={content} onRead={setSelectedContent} />)}
-          </div>
-          {visibleContents.length === 0 && <p className="mt-10 rounded-2xl border border-dashed border-gray-300 bg-white p-10 text-center text-gray-600">Nenhum conteúdo encontrado.</p>}
+          {loading ? <p className="mt-10 text-center text-slate-500" role="status">A carregar conteúdos...</p> : error ? (
+            <div className="mt-10 rounded-xl bg-red-50 p-5 text-center text-sm text-red-700" role="alert"><p>{error}</p><button type="button" onClick={retry} className="mt-3 font-bold underline">Tentar novamente</button></div>
+          ) : visibleContents.length === 0 ? <p className="mt-10 rounded-2xl border border-dashed border-gray-300 bg-white p-10 text-center text-gray-600">{contents.length ? "Nenhum conteúdo encontrado." : "Ainda não há conteúdos publicados."}</p> : (
+            <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {visibleContents.map((content) => <ContentCard key={content.id} content={content} onRead={setSelectedContent} />)}
+            </div>
+          )}
 
           {selectedContent && (
             <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-900/70 px-4 py-6" role="dialog" aria-modal="true" aria-labelledby="content-dialog-title" onClick={() => setSelectedContent(null)}>
               <article className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl bg-white shadow-2xl" onClick={(event) => event.stopPropagation()}>
-                <img src={selectedContent.image} alt={selectedContent.title} className="h-56 w-full object-cover sm:h-72" />
+                {selectedContent.image_url && <img src={selectedContent.image_url} alt={selectedContent.title} className="h-56 w-full object-cover sm:h-72" />}
                 <div className="p-7 sm:p-10">
                   <div className="flex items-center justify-between gap-4">
-                    <span className="rounded-md bg-cyan-50 px-3 py-1 text-xs font-bold text-primary">{selectedContent.category}</span>
+                    <span className="rounded-md bg-cyan-50 px-3 py-1 text-xs font-bold text-primary">{selectedContent.category || "Informática"}</span>
                     <button type="button" onClick={() => setSelectedContent(null)} className="text-sm font-semibold text-gray-500 hover:text-slate-900">Fechar</button>
                   </div>
                   <h2 id="content-dialog-title" className="mt-5 text-3xl font-bold leading-tight text-slate-900">{selectedContent.title}</h2>
                   <p className="mt-5 text-lg leading-8 text-gray-600">{selectedContent.description}</p>
-                  <div className="mt-7 space-y-4 text-gray-600">
-                    <p>Antes de procurar uma solução, observe os sinais do problema e anote quando ele acontece. Essa informação ajuda a encontrar a causa mais rapidamente.</p>
-                    <p>Faça uma alteração de cada vez e confirme o resultado. Evite apagar ficheiros ou instalar programas sem verificar a origem.</p>
-                    <p>Se o problema continuar, envie um pedido de suporte com estes detalhes. A equipa poderá orientar os próximos passos com mais segurança.</p>
-                  </div>
-                  <Link to={`/videos#${selectedContent.id}`} onClick={() => setSelectedContent(null)} className="mt-8 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary to-secondary px-6 py-3.5 font-bold text-white hover:shadow-md">
-                    Ver vídeo relacionado <ArrowRight size={18} />
-                  </Link>
+                  {selectedContent.url && <a href={selectedContent.url} target="_blank" rel="noreferrer" className="mt-8 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary to-secondary px-6 py-3.5 font-bold text-white hover:shadow-md">Abrir recurso <ArrowRight size={18} /></a>}
                 </div>
               </article>
             </div>

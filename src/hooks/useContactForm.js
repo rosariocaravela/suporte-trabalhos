@@ -1,19 +1,20 @@
 import { useState } from "react";
+import { createSupportRequest } from "../services/requestService";
 
-const initialFormData = {
-  nome: "",
-  email: "",
+const initialFormData = (serviceId = "") => ({
   telefone: "",
-  servico: "",
+   servico: serviceId,
+   prioridade: "MEDIUM",
   assunto: "",
   mensagem: "",
-};
+});
 
-const useContactForm = () => {
-  const [formData, setFormData] = useState(initialFormData);
+const useContactForm = (serviceId = "") => {
+  const [formData, setFormData] = useState(() => initialFormData(serviceId));
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [createdRequestId, setCreatedRequestId] = useState(null);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -30,19 +31,23 @@ const useContactForm = () => {
     setIsSubmitting(true);
     setSuccessMessage("");
     setErrorMessage("");
+    setCreatedRequestId(null);
 
     try {
-      // Futuramente será feita a chamada para o backend/API.
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      setSuccessMessage(
-        "Mensagem enviada com sucesso! Entraremos em contacto consigo."
-      );
-
-      setFormData(initialFormData);
-    } catch {
+      const request = await createSupportRequest({
+        serviceId: formData.servico,
+        subject: formData.assunto,
+        description: formData.mensagem,
+        contactPhone: formData.telefone,
+        priority: formData.prioridade,
+      });
+      setCreatedRequestId(request.id);
+      setSuccessMessage("Pedido criado. Já pode acompanhar o estado na sua área de cliente.");
+      setFormData(initialFormData(serviceId));
+    } catch (submitError) {
+      console.error("Não foi possível criar o pedido:", submitError);
       setErrorMessage(
-        "Ocorreu um erro ao enviar a mensagem. Tente novamente."
+        "Não foi possível enviar o pedido. Verifique a ligação e tente novamente."
       );
     } finally {
       setIsSubmitting(false);
@@ -50,9 +55,10 @@ const useContactForm = () => {
   };
 
   const resetForm = () => {
-    setFormData(initialFormData);
+    setFormData(initialFormData(serviceId));
     setSuccessMessage("");
     setErrorMessage("");
+    setCreatedRequestId(null);
   };
 
   return {
@@ -60,6 +66,7 @@ const useContactForm = () => {
     isSubmitting,
     successMessage,
     errorMessage,
+    createdRequestId,
     handleChange,
     handleSubmit,
     resetForm,
